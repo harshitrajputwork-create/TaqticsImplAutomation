@@ -328,7 +328,7 @@ let DESIGS = [...DESIGS_FALLBACK];
 let DR = {};
 DESIGS.forEach(d => DR[d.name] = d.role);
 
-let desigLoadedForImpl = null; // track which impl's designations are loaded
+let desigLoadedForImpl = null;
 
 async function fetchDesignations(impl) {
   const bar = document.getElementById('desigStatusBar');
@@ -423,8 +423,8 @@ function onSubChange() {
     document.getElementById('hqSup').textContent = `impl${v}@taqtics.co`;
     document.getElementById('cfBlock').classList.remove('hidden');
     pill.textContent = `impl${v}.taqtics.co`; pill.style.display = 'block';
-    // Fetch live designations for this impl
-    if (desigLoadedForImpl !== v) fetchDesignations(v);
+    // Always fetch fresh designations when subdomain changes
+    fetchDesignations(v);
   } else {
     document.getElementById('cfBlock').classList.add('hidden');
     pill.style.display = 'none';

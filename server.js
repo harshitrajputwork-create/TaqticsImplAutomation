@@ -67,4 +67,4 @@ app.get('/proxy/roles', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Taqtics Impl Automation running on http://localhost:${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`Taqtics Impl Automation running on port ${PORT}`));
