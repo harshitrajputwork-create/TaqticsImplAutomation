@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taqtics — Trial Setup Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #EDF1F7; --card: #fff;
+      --p: #2563EB; --pd: #1D4ED8; --pl: #EFF6FF; --pb: #BFDBFE;
+      --br: #D4DCE8; --brl: #E8EDF5;
+      --tx: #0F172A; --ts: #64748B; --tm: #94A3B8;
+      --ok: #059669; --okl: #ECFDF5;
+      --wb: #FFFBEB; --wbr: #FDE68A; --wt: #92400E;
+      --er: #DC2626;
+      --sh: 0 1px 3px rgba(15,23,42,.08),0 1px 2px rgba(15,23,42,.05);
+      --r: 12px; --rs: 8px; --rx: 5px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;font-size:14px;line-height:1.5}
+
+    /* HEADER */
+    .hdr{background:#fff;border-bottom:1px solid var(--br);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:200;box-shadow:0 1px 2px rgba(15,23,42,.05)}
+    .hdr-l{display:flex;align-items:center;gap:12px}
+    .logo{font-size:17px;font-weight:800;color:var(--p);letter-spacing:-.4px}
+    .hdiv{width:1px;height:16px;background:var(--br)}
+    .tlbl{font-size:12.5px;font-weight:600;color:var(--ts)}
+    .spill{font-size:11px;font-weight:700;background:var(--pl);color:var(--p);padding:4px 11px;border-radius:20px;border:1px solid var(--pb);display:none}
+
+    /* MAIN */
+    .main{max-width:820px;margin:0 auto;padding:32px 20px 80px}
+
+    /* STEP BAR */
+    .sbar{background:#fff;border:1px solid var(--br);border-radius:var(--r);box-shadow:var(--sh);padding:20px 28px;margin-bottom:24px;display:flex;align-items:center;overflow-x:auto}
+    .sn{display:flex;align-items:center;flex:1}.sn:last-child{flex:0}
+    .sdot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;transition:all .2s}
+    .sdot.done{background:var(--ok);color:#fff}
+    .sdot.active{background:var(--p);color:#fff;box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+    .sdot.idle{background:#F1F5F9;color:var(--tm);border:2px solid var(--br)}
+    .smeta{margin-left:9px}
+    .ssup{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--tm)}
+    .slbl{font-size:12.5px;font-weight:700;color:var(--tx)}.slbl.dim{color:var(--tm)}
+    .sline{flex:1;height:2px;background:var(--brl);margin:0 8px;border-radius:2px;transition:background .2s;margin-top:-12px}
+    .sline.done{background:var(--ok)}
+
+    /* CARD */
+    .card{background:#fff;border:1px solid var(--br);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+    .ch{padding:20px 26px 16px;border-bottom:1px solid var(--brl)}
+    .ct{font-size:16px;font-weight:800;color:var(--tx);letter-spacing:-.2px}
+    .cs{font-size:13px;color:var(--ts);margin-top:2px}
+    .cb{padding:24px 26px}
+
+    /* FORM */
+    .fg{margin-bottom:18px}.fg:last-child{margin-bottom:0}
+    .fgr{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    label{display:block;font-size:12.5px;font-weight:700;color:var(--tx);margin-bottom:5px}
+    label .req{color:var(--er);margin-left:2px}
+    label .opt{font-weight:400;color:var(--tm);font-size:11.5px}
+    input[type=text],input[type=email],input[type=number],select{
+      width:100%;padding:9px 12px;border:1.5px solid var(--br);border-radius:var(--rs);
+      font-family:inherit;font-size:13.5px;color:var(--tx);background:#FAFBFC;outline:none;
+      transition:border-color .15s,box-shadow .15s,background .15s}
+    input:focus,select:focus{border-color:var(--p);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+    input::placeholder{color:#C5CDD9}
+    select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2364748B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:16px;padding-right:34px;cursor:pointer}
+
+    /* INFO BOX */
+    .ibox{background:var(--pl);border:1px solid var(--pb);border-radius:var(--rs);padding:11px 14px;font-size:13px;color:#1E40AF;display:flex;gap:8px;align-items:flex-start;margin-bottom:18px}
+    .ibox svg{flex-shrink:0;margin-top:1px}
+
+    /* DESIGNATION LOADING */
+    .desig-loading{display:flex;align-items:center;gap:8px;padding:9px 12px;border:1.5px solid var(--br);border-radius:var(--rs);background:#FAFBFC;color:var(--tm);font-size:13px}
+    .desig-loading .spin{width:14px;height:14px;border:2px solid var(--pb);border-top-color:var(--p);border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .desig-error{padding:9px 12px;border:1.5px solid #FCA5A5;border-radius:var(--rs);background:#FEF2F2;color:#DC2626;font-size:13px}
+
+    /* COMPUTED */
+    .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .cf{background:#F8FAFC;border:1px solid var(--br);border-radius:var(--rs);padding:11px 14px}
+    .cfl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--tm);margin-bottom:3px}
+    .cfv{font-size:13px;font-weight:700;color:var(--tx);font-family:'Courier New',monospace;word-break:break-all}
+
+    /* STORE ROW */
+    .srow{display:flex;align-items:center;gap:9px;margin-bottom:9px}.srow:last-child{margin-bottom:0}
+    .snum{width:26px;height:26px;border-radius:50%;background:var(--pl);color:var(--p);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--pb)}
+    .srow input{margin:0}
+
+    /* EMAIL TOGGLE */
+    .etog{display:flex;border:1.5px solid var(--br);border-radius:var(--rs);overflow:hidden;margin-bottom:7px}
+    .etb{flex:1;padding:8px;text-align:center;font-size:12.5px;font-weight:600;cursor:pointer;border:none;background:#FAFBFC;color:var(--ts);transition:all .15s;font-family:inherit}
+    .etb.on{background:var(--p);color:#fff}
+
+    /* EDITABLE EMAIL INPUT (dummy mode) */
+    .eprev-inp{width:100%;padding:7px 11px;background:#F8FAFC;border:1.5px dashed var(--br);border-radius:var(--rx);font-family:monospace;font-size:12.5px;color:var(--tx);outline:none;transition:border-color .15s,background .15s}
+    .eprev-inp:focus{background:#fff;border-color:var(--p);border-style:solid;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+    .eprev-inp[data-manual="1"]{border-color:#94A3B8;border-style:solid;color:var(--tx)}
+    .email-field-hint{font-size:11px;color:var(--tm);margin-top:4px}
+    .email-field-hint span{color:var(--p);cursor:pointer;font-weight:600}
+    .email-field-hint span:hover{text-decoration:underline}
+
+    /* ── DESIGNATION PICKER ── */
+    .dp{position:relative}
+    .dp-trig{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border:1.5px solid var(--br);border-radius:var(--rs);background:#FAFBFC;cursor:pointer;user-select:none;transition:border-color .15s,box-shadow .15s,background .15s}
+    .dp-trig:hover{border-color:#B0BBD0}
+    .dp-trig.open{border-color:var(--p);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+    .dp-val{font-size:13.5px;color:var(--tm);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:8px}
+    .dp-val.sel{color:var(--tx);font-weight:500}
+    .dp-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1.5px solid var(--pb);border-radius:var(--rs);box-shadow:0 8px 24px rgba(15,23,42,.12);z-index:400;display:flex;flex-direction:column}
+    .dp-si{border:none !important;border-bottom:1px solid var(--brl) !important;border-radius:0 !important;background:#F8FAFC !important;box-shadow:none !important;font-size:13px !important;padding:9px 12px !important}
+    .dp-si:focus{background:#fff !important;box-shadow:none !important;border-color:var(--brl) !important}
+    .dp-opts{max-height:210px;overflow-y:auto}
+    .dp-opt{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;cursor:pointer;transition:background .1s;gap:10px}
+    .dp-opt:hover{background:var(--pl)}
+    .dp-oname{font-size:13px;font-weight:500;color:var(--tx)}
+    .dp-orole{font-size:11px;font-weight:700;color:var(--p);background:var(--pl);padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0}
+    mark.hl{background:#FEF08A;border-radius:2px;padding:0 1px}
+    .dp-empty{padding:14px 12px;font-size:13px;color:var(--tm);text-align:center}
+    .dp-hint{margin-top:6px;font-size:12px;color:#1E40AF;padding:5px 9px;background:var(--pl);border-radius:var(--rx);font-weight:600;display:none}
+
+    /* STORE SECTION (step 4) */
+    .ss{border:1.5px solid var(--br);border-radius:var(--r);overflow:hidden;margin-bottom:18px}
+    .ss:last-child{margin-bottom:0}
+    .ss-hd{background:#F8FAFC;border-bottom:1px solid var(--brl);padding:12px 18px;display:flex;align-items:center;justify-content:space-between}
+    .ss-hl{display:flex;align-items:center;gap:9px}
+    .sstag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;background:var(--pl);color:var(--p);padding:3px 7px;border-radius:4px;border:1px solid var(--pb)}
+    .ssname{font-size:14px;font-weight:700;color:var(--tx)}
+    .itog{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+    .itrack{width:34px;height:18px;border-radius:9px;background:#D4DCE8;position:relative;transition:background .2s;flex-shrink:0}
+    .itrack::after{content:'';width:12px;height:12px;background:#fff;border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+    .itrack.on{background:var(--ok)}.itrack.on::after{transform:translateX(16px)}
+    .itlbl{font-size:12px;font-weight:600;color:var(--ts)}.itlbl.on{color:var(--ok)}
+    .ss-body{padding:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+    .ub{padding:14px;border:1.5px solid var(--brl);border-radius:var(--rs);margin:0}
+    .ubadge{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:3px 7px;border-radius:4px;margin-bottom:12px;display:inline-block}
+    .ubadge.mgr{background:#FEF3C7;color:#92400E}.ubadge.emp{background:var(--okl);color:#065F46}
+
+    /* NAV */
+    .nav{display:flex;justify-content:space-between;align-items:center;margin-top:26px}
+    .btn{padding:10px 22px;border-radius:var(--rs);font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;transition:all .15s;border:none;display:inline-flex;align-items:center;gap:7px}
+    .btnp{background:var(--p);color:#fff}.btnp:hover{background:var(--pd);transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,.3)}
+    .btng{background:#fff;color:var(--tx);border:1.5px solid var(--br)}.btng:hover{background:#F8FAFC}
+
+    /* DOWNLOAD */
+    .cgrid2{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+    .cc{border:1.5px solid var(--br);border-radius:var(--r);overflow:hidden}
+    .cc-hd{background:#F8FAFC;border-bottom:1px solid var(--brl);padding:13px 15px}
+    .cc-ord{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--tm);margin-bottom:3px}
+    .cc-name{font-size:15px;font-weight:800;color:var(--tx);letter-spacing:-.2px}
+    .cc-cnt{font-size:12px;color:var(--ts);margin-top:2px}
+    .cc-bd{padding:13px 15px}
+    .dlbtn{width:100%;padding:9px;background:var(--p);color:#fff;border:none;border-radius:var(--rs);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s}
+    .dlbtn:hover{background:var(--pd)}
+    .cc-pre{margin-top:9px;font-size:10px;color:var(--tm);font-family:monospace;background:#F8FAFC;padding:7px;border-radius:4px;max-height:65px;overflow:auto;white-space:pre;line-height:1.7}
+    .uob{background:var(--wb);border:1.5px solid var(--wbr);border-radius:var(--rs);padding:15px 17px}
+    .uob-t{font-size:13px;font-weight:800;color:var(--wt);margin-bottom:9px}
+    .uob-l{list-style:none;counter-reset:uc}
+    .uob-l li{counter-increment:uc;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;color:#78350F;margin-bottom:6px}
+    .uob-l li:last-child{margin-bottom:0}
+    .uob-l li::before{content:counter(uc);width:18px;height:18px;background:#F59E0B;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+
+    .hidden{display:none !important}
+    @media(max-width:600px){.main{padding:16px 12px 60px}.cb{padding:16px}.fgr{grid-template-columns:1fr}.cgrid{grid-template-columns:1fr}.cgrid2{grid-template-columns:1fr}.smeta{display:none}.ss-body{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-l">
+    <div class="logo">taqtics</div>
+    <div class="hdiv"></div>
+    <div class="tlbl">Trial Setup Generator</div>
+  </div>
+  <div class="spill" id="spill"></div>
+</div>
+
+<div class="main">
+  <div class="sbar" id="sbar"></div>
+
+  <!-- Step 1 -->
+  <div id="step1">
+    <div class="card">
+      <div class="ch"><div class="ct">Account Setup</div><div class="cs">Choose the subdomain and enter the client name.</div></div>
+      <div class="cb">
+        <div class="fg">
+          <label>Subdomain <span class="req">*</span></label>
+          <select id="subdomain" onchange="onSubChange()">
+            <option value="">— Select subdomain —</option>
+            <option value="1">impl1.taqtics.co</option>
+            <option value="2">impl2.taqtics.co</option>
+            <option value="3">impl3.taqtics.co</option>
+            <option value="4">impl4.taqtics.co</option>
+          </select>
+        </div>
+        <div id="cfBlock" class="hidden">
+          <div class="cgrid">
+            <div class="cf"><div class="cfl">Root Admin Email</div><div class="cfv" id="cfEmail">—</div></div>
+            <div class="cf"><div class="cfl">Default Password</div><div class="cfv" id="cfPwd">—</div></div>
+          </div>
+          <div id="desigStatusBar" style="margin-top:10px"></div>
+        </div>
+        <div class="fg" style="margin-top:16px">
+          <label>Client Name <span class="opt">(used as user tag on impl3)</span></label>
+          <input type="text" id="clientName" placeholder="e.g. Jockey, Miniso, Bata…" oninput="refreshPrevs()" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div id="step2" class="hidden">
+    <div class="card">
+      <div class="ch"><div class="ct">Store Setup</div><div class="cs">Name your stores, then download the Store CSV to upload to Taqtics first.</div></div>
+      <div class="cb">
+        <div class="fg">
+          <label>Number of Stores <span class="req">*</span></label>
+          <input type="number" id="storeCount" min="1" max="20" placeholder="e.g. 2" style="max-width:120px" oninput="renderStoreInputs()" />
+        </div>
+        <div id="storeList"></div>
+        <div id="storeDlSection" class="hidden" style="margin-top:16px">
+          <div class="fgr" style="margin-bottom:14px">
+            <div class="fg" style="margin:0">
+              <label>Country <span class="opt">for store CSV — leave blank for India</span></label>
+              <input type="text" id="storeCountry" placeholder="India (default)" />
+            </div>
+            <div class="fg" style="margin:0">
+              <label>City / Area <span class="opt">for store CSV — leave blank for New Delhi</span></label>
+              <input type="text" id="storeCity" placeholder="New Delhi (default)" />
+            </div>
+          </div>
+          <button class="btn btnp" onclick="dlStoreCSV()" style="width:100%;justify-content:center">↓ Download Store CSV</button>
+          <div class="ibox" style="margin-top:12px;margin-bottom:0">
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+            Upload this CSV to Taqtics <strong>before</strong> continuing — users reference these store names.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div id="step3" class="hidden">
+    <div class="card">
+      <div class="ch"><div class="ct">Head Office User</div><div class="cs">Top-level user — uploaded first. All store users report up to them.</div></div>
+      <div class="cb">
+        <div class="ibox">
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+          Supervisor will be set to <strong id="hqSup" style="font-family:monospace;margin-left:4px">impl3@taqtics.co</strong>
+        </div>
+        <div class="fgr">
+          <div class="fg" style="margin:0">
+            <label>Full Name <span class="req">*</span></label>
+            <input type="text" id="hqName" placeholder="e.g. Rajesh Kumar (leave blank to auto-name)" oninput="refreshPrevs()" />
+          </div>
+          <div class="fg" style="margin:0">
+            <label>Store <span class="opt">(optional)</span></label>
+            <select id="hqStore"><option value="">— No store assigned —</option></select>
+          </div>
+        </div>
+        <div class="fg" style="margin-top:16px">
+          <label>Designation <span class="req">*</span></label>
+          <div id="dpc_hq"></div>
+        </div>
+        <div class="fg">
+          <label>Email</label>
+          <div class="etog">
+            <button class="etb on" onclick="etToggle('hq','dummy',this)">Generate Dummy</button>
+            <button class="etb" onclick="etToggle('hq','real',this)">Use Real Email</button>
+          </div>
+          <div id="hq_dw"><input type="email" class="eprev-inp" id="hq_ei" placeholder="auto-generated on name entry" oninput="markManual(this,'hq')" /><div class="email-field-hint">Auto-suggested · edit freely · <span onclick="resetEmail('hq')">reset to auto</span></div></div>
+          <div id="hq_rw" class="hidden"><input type="email" id="hq_ri" placeholder="actual@email.com" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div id="step4" class="hidden">
+    <div class="card">
+      <div class="ch"><div class="ct">Store Users</div><div class="cs">One Store Manager + one Store Employee per store. Toggle off stores that don't need users.</div></div>
+      <div class="cb" id="sub"></div>
+    </div>
+  </div>
+
+  <!-- Step 5 -->
+  <div id="step5" class="hidden">
+    <div class="card">
+      <div class="ch"><div class="ct">Download CSVs</div><div class="cs">Three files ready — upload to Taqtics in order.</div></div>
+      <div class="cb">
+        <div class="cgrid2" id="csvGrid"></div>
+        <div class="uob">
+          <div class="uob-t">⚠️ Upload in this exact order</div>
+          <ul class="uob-l">
+            <li>Upload <strong>CSV 1 — HQ User</strong> → wait for it to finish</li>
+            <li>Upload <strong>CSV 2 — Store Managers</strong> → wait for it to finish</li>
+            <li>Upload <strong>CSV 3 — Store Employees</strong> → wait for it to finish</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btng" id="backBtn" onclick="goBack()" style="visibility:hidden">← Back</button>
+    <button class="btn btnp" id="nextBtn" onclick="goNext()">Continue →</button>
+  </div>
+</div>
+
+<script>
+// ── LIVE DESIGNATIONS ──
+// DESIGS and DR are populated by fetchDesignations() when a subdomain is selected.
+// Fallback hardcoded list is used if the fetch fails.
+const DESIGS_FALLBACK = [
+  {name:"Admin",role:"admin"},{name:"Business Head",role:"companyAdmin"},
+  {name:"Owner",role:"nonCreatorCompanyAdmin"},{name:"Store Manager",role:"storeManager"},
+  {name:"Store Employee",role:"storeEmployee"},{name:"Operation Manager-SB",role:"companyAdmin"},
+  {name:"District Manager-SB",role:"areaManager"},{name:"Store-SB",role:"storeManager"},
+  {name:"IT Support",role:"companyAdmin"},{name:"Ops-Head",role:"companyAdmin"},
+  {name:"Business Head-PM",role:"companyAdmin"},{name:"Vendor",role:"storeManager"},
+  {name:"Auditor",role:"areaManager"},{name:"VP",role:"nonCreatorCompanyAdmin"},
+  {name:"IT Director",role:"nonCreatorCompanyAdmin"},{name:"Training Manager",role:"companyAdmin"},
+  {name:"Training manager",role:"nonCreatorCompanyAdmin"},{name:"Field trainer",role:"nonCreatorStoreManager"},
+  {name:"Branch Manager",role:"nonCreatorAreaManager"},{name:"CEO",role:"companyAdmin"},
+  {name:"General Manager",role:"storeManager"},{name:"SS",role:"storeManager"}
+];
+
+let DESIGS = [...DESIGS_FALLBACK];
+let DR = {};
+DESIGS.forEach(d => DR[d.name] = d.role);
+
+let desigLoadedForImpl = null; // track which impl's designations are loaded
+
+async function fetchDesignations(impl) {
+  const bar = document.getElementById('desigStatusBar');
+  bar.innerHTML = '<div class="desig-loading"><div class="spin"></div>Loading designations from impl' + impl + '…</div>';
+
+  try {
+    const res = await fetch(`/proxy/roles?impl=${impl}`);
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    // Map API response { role, userRole } → { name, role } to match existing code
+    const seen = new Set();
+    DESIGS = data
+      .map(d => ({ name: d.role, role: d.userRole }))
+      .filter(d => d.name && d.role && !seen.has(d.name) && seen.add(d.name));
+
+    DR = {};
+    DESIGS.forEach(d => DR[d.name] = d.role);
+    desigLoadedForImpl = impl;
+
+    bar.innerHTML = '<div style="font-size:12px;color:var(--ok);font-weight:600;padding:4px 0">✓ ' + DESIGS.length + ' designations loaded from impl' + impl + '</div>';
+
+    // Re-render any open pickers with fresh data
+    rerenderAllPickers();
+  } catch (err) {
+    console.error('fetchDesignations error:', err);
+    DESIGS = [...DESIGS_FALLBACK];
+    DR = {};
+    DESIGS.forEach(d => DR[d.name] = d.role);
+    bar.innerHTML = '<div class="desig-error">Could not load live designations — using cached list. (' + err.message + ')</div>';
+    rerenderAllPickers();
+  }
+}
+
+function rerenderAllPickers() {
+  // Re-render every picker that's already been initialised
+  document.querySelectorAll('[id^="dp_"]').forEach(el => {
+    const uid = el.id.replace('dp_', '');
+    const saved = dSel[uid];
+    dpRender(uid, '');
+    // Restore selection if the designation still exists in new list
+    if (saved && DR[saved.name]) {
+      dpSelect(uid, saved.name, DR[saved.name], false);
+    } else if (saved) {
+      // Designation no longer exists in this impl — clear it
+      delete dSel[uid];
+      const v = document.getElementById(`dpv_${uid}`);
+      const inp = document.getElementById(`dpi_${uid}`);
+      const hint = document.getElementById(`dph_${uid}`);
+      if (v) { v.textContent = 'Select designation…'; v.classList.remove('sel'); }
+      if (inp) inp.value = '';
+      if (hint) hint.style.display = 'none';
+    }
+  });
+}
+
+// ── STATE ──
+let step = 1;
+const eModes = {hq:'dummy'};
+const sInc = {};
+const dSel = {};
+let openDp = null;
+let cachedCSVs = [];
+
+const SMETA = [
+  {sup:"Step 1",lbl:"Account Setup"},{sup:"Step 2",lbl:"Stores"},
+  {sup:"Step 3",lbl:"HQ User"},{sup:"Step 4",lbl:"Store Users"},{sup:"Step 5",lbl:"Download"}
+];
+
+// ── STEP BAR ──
+function renderBar() {
+  const c = document.getElementById('sbar');
+  let h = '';
+  SMETA.forEach((m,i) => {
+    const n=i+1, done=n<step, active=n===step;
+    const dc = done?'done':active?'active':'idle';
+    const tc = (done||active)?'':'dim';
+    h += `<div class="sn"><div class="sdot ${dc}">${done?'✓':n}</div><div class="smeta"><div class="ssup">${m.sup}</div><div class="slbl ${tc}">${m.lbl}</div></div></div>`;
+    if (i < SMETA.length-1) h += `<div class="sline ${done?'done':''}"></div>`;
+  });
+  c.innerHTML = h;
+}
+
+// ── STEP 1 ──
+function onSubChange() {
+  const v = document.getElementById('subdomain').value;
+  const pill = document.getElementById('spill');
+  if (v) {
+    document.getElementById('cfEmail').textContent = `impl${v}@taqtics.co`;
+    document.getElementById('cfPwd').textContent = `Impl${v}@123789`;
+    document.getElementById('hqSup').textContent = `impl${v}@taqtics.co`;
+    document.getElementById('cfBlock').classList.remove('hidden');
+    pill.textContent = `impl${v}.taqtics.co`; pill.style.display = 'block';
+    // Fetch live designations for this impl
+    if (desigLoadedForImpl !== v) fetchDesignations(v);
+  } else {
+    document.getElementById('cfBlock').classList.add('hidden');
+    pill.style.display = 'none';
+  }
+  refreshPrevs();
+}
+
+// ── STEP 2 ──
+function renderStoreInputs() {
+  const n = parseInt(document.getElementById('storeCount').value) || 0;
+  const list = document.getElementById('storeList');
+  const dlSec = document.getElementById('storeDlSection');
+  const client = document.getElementById('clientName')?.value.trim();
+  list.innerHTML = '';
+  for (let i = 0; i < n; i++) {
+    const ph = client ? `${client} Store ${i+1}` : `Store ${i+1}`;
+    list.innerHTML += `<div class="srow"><div class="snum">${i+1}</div><input type="text" id="sn_${i}" placeholder="${ph}" oninput="refreshPrevs()" /></div>`;
+  }
+  if (dlSec) dlSec.classList.toggle('hidden', n === 0);
+}
+
+// ── NAME HELPERS ──
+function getStoreName(i) {
+  const val = document.getElementById(`sn_${i}`)?.value.trim();
+  if (val) return val;
+  const client = document.getElementById('clientName')?.value.trim();
+  return client ? `${client} Store ${i+1}` : `Store ${i+1}`;
+}
+function getHQName() {
+  const val = document.getElementById('hqName')?.value.trim();
+  if (val) return val;
+  const client = document.getElementById('clientName')?.value.trim();
+  return client ? `${client} Head Office` : 'Head Office';
+}
+function getManagerName(i) {
+  const val = document.getElementById(`nm_s${i}m`)?.value.trim();
+  if (val) return val;
+  const client = document.getElementById('clientName')?.value.trim();
+  return client ? `${client} Manager ${i+1}` : `Store Manager ${i+1}`;
+}
+function getEmployeeName(i) {
+  const val = document.getElementById(`nm_s${i}e`)?.value.trim();
+  if (val) return val;
+  const client = document.getElementById('clientName')?.value.trim();
+  return client ? `${client} Employee ${i+1}` : `Store Employee ${i+1}`;
+}
+
+// ── STORE CSV ──
+function buildStoreCSV() {
+  const n = parseInt(document.getElementById('storeCount').value) || 0;
+  const client = document.getElementById('clientName').value.trim();
+  const country = document.getElementById('storeCountry')?.value.trim() || 'India';
+  const city = document.getElementById('storeCity')?.value.trim() || 'New Delhi';
+  const stateMap = {'New Delhi':'Delhi','Mumbai':'Maharashtra','Bangalore':'Karnataka','Bengaluru':'Karnataka','Chennai':'Tamil Nadu','Hyderabad':'Telangana','Kolkata':'West Bengal','Pune':'Maharashtra','Ahmedabad':'Gujarat','Jaipur':'Rajasthan'};
+  const state = stateMap[city] || city;
+  const HDR = ['Store Name','Area','Address','City','State','Country','EntityId','Latitude','Longitude','Store Radius','Store-Status','Client_Name'];
+  const cityCoords = {'New Delhi':[28.6139,77.2090],'Mumbai':[19.0760,72.8777],'Bangalore':[12.9716,77.5946],'Bengaluru':[12.9716,77.5946],'Chennai':[13.0827,80.2707],'Hyderabad':[17.3850,78.4867],'Kolkata':[22.5726,88.3639],'Pune':[18.5204,73.8567],'Ahmedabad':[23.0225,72.5714],'Jaipur':[26.9124,75.7873]};
+  const [baseLat, baseLng] = cityCoords[city] || [28.6139, 77.2090];
+  const rows = [];
+  for (let i = 0; i < n; i++) {
+    const sName = getStoreName(i);
+    const lat = (baseLat + (Math.random()-0.5)*0.08).toFixed(4);
+    const lng = (baseLng + (Math.random()-0.5)*0.08).toFixed(4);
+    rows.push([sName, `Area ${i+1}`, `${i+1} Main Road`, city, state, country,
+      Math.floor(100000+Math.random()*900000), lat, lng, 100, 'Functional', client]);
+  }
+  return {HDR, rows};
+}
+
+function dlStoreCSV() {
+  const {HDR, rows} = buildStoreCSV();
+  const content = [HDR, ...rows].map(r => r.map(v => `"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([content], {type:'text/csv;charset=utf-8;'}));
+  a.download = '00_stores.csv'; a.click();
+}
+
+// ── STEP 3: HQ STORE PICKER ──
+function populateHQStore() {
+  const n = parseInt(document.getElementById('storeCount').value) || 0;
+  const sel = document.getElementById('hqStore');
+  const prev = sel.value;
+  sel.innerHTML = '<option value="">— No store assigned —</option>';
+  for (let i = 0; i < n; i++) {
+    const nm = getStoreName(i);
+    const o = document.createElement('option');
+    o.value = nm; o.textContent = nm; sel.appendChild(o);
+  }
+  if (prev) sel.value = prev;
+}
+
+// ── DESIGNATION PICKER ──
+function pickerHTML(uid) {
+  return `<div class="dp" id="dp_${uid}">
+    <div class="dp-trig" id="dpt_${uid}" onclick="dpOpen('${uid}')">
+      <span class="dp-val" id="dpv_${uid}">Select designation…</span>
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M6 8l4 4 4-4" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="dp-drop hidden" id="dpd_${uid}">
+      <input class="dp-si" type="text" placeholder="Type name or taqtics role… e.g. area manager" oninput="dpFilter('${uid}',this.value)" onclick="event.stopPropagation()" />
+      <div class="dp-opts" id="dpo_${uid}"></div>
+    </div>
+    <div class="dp-hint" id="dph_${uid}"></div>
+    <input type="hidden" id="dpi_${uid}" />
+  </div>`;
+}
+
+function dpOpen(uid) {
+  if (openDp && openDp !== uid) dpClose(openDp);
+  openDp = uid;
+  const drop = document.getElementById(`dpd_${uid}`);
+  const trig = document.getElementById(`dpt_${uid}`);
+  if (!drop) return;
+  drop.classList.remove('hidden');
+  trig.classList.add('open');
+  const si = drop.querySelector('.dp-si');
+  if (si) { si.value = ''; si.focus(); }
+  dpRender(uid, '');
+}
+
+function dpClose(uid) {
+  document.getElementById(`dpd_${uid}`)?.classList.add('hidden');
+  document.getElementById(`dpt_${uid}`)?.classList.remove('open');
+  if (openDp === uid) openDp = null;
+}
+
+function dpFilter(uid, q) { dpRender(uid, q); }
+
+function dpRender(uid, query) {
+  const el = document.getElementById(`dpo_${uid}`);
+  if (!el) return;
+  const q = (query || '').toLowerCase().trim();
+  const qc = q.replace(/\s+/g, '');
+  const filtered = DESIGS.filter(d => {
+    if (!q) return true;
+    const rs = d.role.replace(/([A-Z])/g, ' $1').toLowerCase();
+    return d.name.toLowerCase().includes(q) || d.role.toLowerCase().includes(qc) || rs.includes(q);
+  });
+  if (!filtered.length) { el.innerHTML = '<div class="dp-empty">No matches found</div>'; return; }
+  el.innerHTML = '';
+  filtered.forEach(d => {
+    const div = document.createElement('div');
+    div.className = 'dp-opt';
+    div.innerHTML = `<span class="dp-oname">${hlText(d.name, q)}</span><span class="dp-orole">${d.role}</span>`;
+    div.addEventListener('click', e => { e.stopPropagation(); dpSelect(uid, d.name, d.role); });
+    el.appendChild(div);
+  });
+}
+
+function dpSelect(uid, name, role, close=true) {
+  dSel[uid] = {name, role};
+  const v = document.getElementById(`dpv_${uid}`);
+  const inp = document.getElementById(`dpi_${uid}`);
+  const hint = document.getElementById(`dph_${uid}`);
+  if (v) { v.textContent = name; v.classList.add('sel'); }
+  if (inp) inp.value = name;
+  if (hint) { hint.style.display = 'block'; hint.textContent = `Taqtics Role: ${role}`; }
+  if (close) dpClose(uid);
+}
+
+function dpInit(uid, preSelect) {
+  const container = document.getElementById(`dpc_${uid}`);
+  if (container && !document.getElementById(`dp_${uid}`)) container.innerHTML = pickerHTML(uid);
+  dpRender(uid, '');
+  const saved = dSel[uid];
+  const toSel = saved ? saved.name : preSelect;
+  if (toSel && DR[toSel]) dpSelect(uid, toSel, DR[toSel], false);
+}
+
+document.addEventListener('click', e => {
+  if (!openDp) return;
+  const el = document.getElementById(`dp_${openDp}`);
+  if (el && !el.contains(e.target)) dpClose(openDp);
+});
+
+// ── EMAIL TOGGLE ──
+function etToggle(key, mode, btn) {
+  eModes[key] = mode;
+  btn.closest('.etog').querySelectorAll('.etb').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById(`${key}_dw`)?.classList.toggle('hidden', mode === 'real');
+  document.getElementById(`${key}_rw`)?.classList.toggle('hidden', mode === 'dummy');
+}
+
+// ── EMAILS ──
+function slug(s) { return (s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'').replace(/^\.+|\.+$/g,'')||'user'; }
+function nameSlug(name) { return (name||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'.').replace(/^\.+|\.+$/g,'')||''; }
+function emailFor(nameVal, shortKey) {
+  const client = slug(document.getElementById('clientName')?.value || 'trial');
+  const local = (nameVal||'').trim() ? nameSlug(nameVal) : shortKey;
+  return `${local}@${client}.com`;
+}
+function markManual(el, key) {
+  if (!el.value.trim()) { delete el.dataset.manual; refreshPrevs(); }
+  else el.dataset.manual = '1';
+}
+function resetEmail(key) {
+  const el = document.getElementById(key === 'hq' ? 'hq_ei' : `ep_${key}`);
+  if (!el) return;
+  delete el.dataset.manual;
+  refreshPrevs();
+}
+function getEmail(key, nameVal, shortKey) {
+  if ((eModes[key]||'dummy') === 'real') {
+    const inp = document.getElementById(`${key}_ri`);
+    if (inp && inp.value.trim()) return inp.value.trim();
+  }
+  const ei = document.getElementById(key === 'hq' ? 'hq_ei' : `ep_${key}`);
+  if (ei && ei.value.trim()) return ei.value.trim();
+  return emailFor(nameVal, shortKey);
+}
+function refreshPrevs() {
+  const hqVal = document.getElementById('hqName')?.value || '';
+  const ei = document.getElementById('hq_ei');
+  if (ei && !ei.dataset.manual) ei.value = emailFor(hqVal, 'hq');
+  const n = parseInt(document.getElementById('storeCount').value) || 0;
+  for (let i = 0; i < n; i++) {
+    const mK = `s${i}m`, eK = `s${i}e`;
+    const mVal = document.getElementById(`nm_${mK}`)?.value || '';
+    const eVal = document.getElementById(`nm_${eK}`)?.value || '';
+    const mp = document.getElementById(`ep_${mK}`);
+    const ep = document.getElementById(`ep_${eK}`);
+    if (mp && !mp.dataset.manual) mp.value = emailFor(mVal, `manager${i+1}`);
+    if (ep && !ep.dataset.manual) ep.value = emailFor(eVal, `employee${i+1}`);
+  }
+}
+
+// ── STEP 4 ──
+function renderStoreUsers() {
+  const n = parseInt(document.getElementById('storeCount').value) || 0;
+  const body = document.getElementById('sub');
+  body.innerHTML = '';
+  const clientLabel = document.getElementById('clientName')?.value.trim();
+
+  for (let i = 0; i < n; i++) {
+    const sn = getStoreName(i);
+    const mK = `s${i}m`, eK = `s${i}e`;
+    if (sInc[i] === undefined) sInc[i] = true;
+    if (!eModes[mK]) eModes[mK] = 'dummy';
+    if (!eModes[eK]) eModes[eK] = 'dummy';
+    const on = sInc[i];
+    const mMode = eModes[mK], eMode = eModes[eK];
+    const mPh = clientLabel ? `${clientLabel} Manager ${i+1}` : `Store Manager ${i+1}`;
+    const ePh = clientLabel ? `${clientLabel} Employee ${i+1}` : `Store Employee ${i+1}`;
+
+    body.innerHTML += `
+      <div class="ss">
+        <div class="ss-hd">
+          <div class="ss-hl"><span class="sstag">Store ${i+1}</span><span class="ssname">${esc(sn)}</span></div>
+          <div class="itog" onclick="toggleInc(${i})">
+            <div class="itrack ${on?'on':''}" id="it_${i}"></div>
+            <span class="itlbl ${on?'on':''}" id="itl_${i}">${on?'Creating users':'Skipped'}</span>
+          </div>
+        </div>
+        <div id="ssb_${i}" class="${on?'':'hidden'}">
+          <div class="ss-body">
+            <div class="ub">
+              <div class="ubadge mgr">Store Manager</div>
+              <div class="fg"><label>Full Name</label><input type="text" id="nm_${mK}" placeholder="${mPh}" oninput="refreshPrevs()" /></div>
+              <div class="fg"><label>Designation</label><div id="dpc_${mK}"></div></div>
+              <div class="fg" style="margin-bottom:0">
+                <label>Email</label>
+                <div class="etog">
+                  <button class="etb ${mMode==='dummy'?'on':''}" onclick="etToggle('${mK}','dummy',this)">Generate Dummy</button>
+                  <button class="etb ${mMode==='real'?'on':''}" onclick="etToggle('${mK}','real',this)">Use Real Email</button>
+                </div>
+                <div id="${mK}_dw" class="${mMode==='real'?'hidden':''}"><input type="email" class="eprev-inp" id="ep_${mK}" placeholder="auto-generated on name entry" oninput="markManual(this,'${mK}')" /><div class="email-field-hint">Auto-suggested · edit freely · <span onclick="resetEmail('${mK}')">reset to auto</span></div></div>
+                <div id="${mK}_rw" class="${mMode==='dummy'?'hidden':''}"><input type="email" id="${mK}_ri" placeholder="actual@email.com" /></div>
+              </div>
+            </div>
+            <div class="ub">
+              <div class="ubadge emp">Store Employee</div>
+              <div class="fg"><label>Full Name</label><input type="text" id="nm_${eK}" placeholder="${ePh}" oninput="refreshPrevs()" /></div>
+              <div class="fg"><label>Designation</label><div id="dpc_${eK}"></div></div>
+              <div class="fg" style="margin-bottom:0">
+                <label>Email</label>
+                <div class="etog">
+                  <button class="etb ${eMode==='dummy'?'on':''}" onclick="etToggle('${eK}','dummy',this)">Generate Dummy</button>
+                  <button class="etb ${eMode==='real'?'on':''}" onclick="etToggle('${eK}','real',this)">Use Real Email</button>
+                </div>
+                <div id="${eK}_dw" class="${eMode==='real'?'hidden':''}"><input type="email" class="eprev-inp" id="ep_${eK}" placeholder="auto-generated on name entry" oninput="markManual(this,'${eK}')" /><div class="email-field-hint">Auto-suggested · edit freely · <span onclick="resetEmail('${eK}')">reset to auto</span></div></div>
+                <div id="${eK}_rw" class="${eMode==='dummy'?'hidden':''}"><input type="email" id="${eK}_ri" placeholder="actual@email.com" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  for (let i = 0; i < n; i++) {
+    dpInit(`s${i}m`, 'Store Manager');
+    dpInit(`s${i}e`, 'Store Employee');
+  }
+  refreshPrevs();
+}
+
+function toggleInc(i) {
+  sInc[i] = !sInc[i];
+  const on = sInc[i];
+  document.getElementById(`it_${i}`).className = `itrack${on?' on':''}`;
+  document.getElementById(`itl_${i}`).className = `itlbl${on?' on':''}`;
+  document.getElementById(`itl_${i}`).textContent = on ? 'Creating users' : 'Skipped';
+  document.getElementById(`ssb_${i}`)?.classList.toggle('hidden', !on);
+}
+
+// ── CSV ──
+function rndId() { return Math.floor(100000+Math.random()*900000); }
+
+function buildCSVs() {
+  const sub = document.getElementById('subdomain').value;
+  const rootEmail = `impl${sub}@taqtics.co`;
+  const pwd = `Impl${sub}@123789`;
+  const client = document.getElementById('clientName').value.trim();
+  const n = parseInt(document.getElementById('storeCount').value) || 0;
+  const HDR = ['Employee Id','Name','Email','Valid Email','Country Code','Phone Number','Store Name','Tenant Role','Supervisor Email','Password','Client_Name'];
+
+  const hqNameVal = document.getElementById('hqName')?.value.trim() || '';
+  const hqName = hqNameVal || getHQName();
+  const hqDesig = document.getElementById('dpi_hq')?.value || 'Business Head';
+  const hqStore = document.getElementById('hqStore').value;
+  const hqEmail = getEmail('hq', hqNameVal, 'hq');
+  const hqValid = eModes.hq === 'real' ? 'TRUE' : 'FALSE';
+  const csv1 = {label:'HQ User', fname:'01_hq_user.csv', rows:[[rndId(),hqName,hqEmail,hqValid,'+91','9999999999',hqStore,hqDesig,rootEmail,pwd,client]], HDR};
+
+  const csv2 = {label:'Store Managers', fname:'02_store_managers.csv', rows:[], HDR};
+  const mgrEmails = {};
+  for (let i = 0; i < n; i++) {
+    if (!sInc[i]) continue;
+    const sn = getStoreName(i);
+    const key = `s${i}m`;
+    const mNameVal = document.getElementById(`nm_${key}`)?.value.trim() || '';
+    const name = mNameVal || getManagerName(i);
+    const desig = document.getElementById(`dpi_${key}`)?.value || 'Store Manager';
+    const email = getEmail(key, mNameVal, `manager${i+1}`);
+    const valid = eModes[key] === 'real' ? 'TRUE' : 'FALSE';
+    mgrEmails[i] = email;
+    csv2.rows.push([rndId(),name,email,valid,'+91','9999999999',sn,desig,hqEmail,pwd,client]);
+  }
+
+  const csv3 = {label:'Store Employees', fname:'03_store_employees.csv', rows:[], HDR};
+  for (let i = 0; i < n; i++) {
+    if (!sInc[i]) continue;
+    const sn = getStoreName(i);
+    const key = `s${i}e`;
+    const eNameVal = document.getElementById(`nm_${key}`)?.value.trim() || '';
+    const name = eNameVal || getEmployeeName(i);
+    const desig = document.getElementById(`dpi_${key}`)?.value || 'Store Employee';
+    const email = getEmail(key, eNameVal, `employee${i+1}`);
+    const valid = eModes[key] === 'real' ? 'TRUE' : 'FALSE';
+    csv3.rows.push([rndId(),name,email,valid,'+91','9999999999',sn,desig,mgrEmails[i]||hqEmail,pwd,client]);
+  }
+
+  return [csv1, csv2, csv3];
+}
+
+function renderCSVCards() {
+  const grid = document.getElementById('csvGrid');
+  const ords = ['1st','2nd','3rd'];
+  grid.innerHTML = '';
+  cachedCSVs.forEach((csv,i) => {
+    const pre = [csv.HDR,...csv.rows].slice(0,3).map(r => r.join(',')).join('\n');
+    const cnt = csv.rows.length;
+    grid.innerHTML += `<div class="cc"><div class="cc-hd"><div class="cc-ord">Upload ${ords[i]}</div><div class="cc-name">${csv.label}</div><div class="cc-cnt">${cnt} user${cnt!==1?'s':''}</div></div><div class="cc-bd"><button class="dlbtn" onclick="dlCSV(${i})">↓ Download ${csv.fname}</button><div class="cc-pre">${esc(pre)}</div></div></div>`;
+  });
+}
+
+function dlCSV(idx) {
+  const csv = cachedCSVs[idx];
+  const content = [csv.HDR,...csv.rows].map(r => r.map(v => `"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([content], {type:'text/csv;charset=utf-8;'}));
+  a.download = csv.fname; a.click();
+}
+
+// ── VALIDATION ──
+function validate(s) {
+  if (s===1 && !document.getElementById('subdomain').value) { alert('Please select a subdomain.'); return false; }
+  if (s===2) {
+    const n = parseInt(document.getElementById('storeCount').value);
+    if (!n || n<1) { alert('Enter at least 1 store.'); return false; }
+  }
+  if (s===3) {
+    if (!document.getElementById('dpi_hq')?.value) { alert('Please select a designation for the HQ user.'); return false; }
+    if (eModes.hq==='real' && !document.getElementById('hq_ri').value.trim()) { alert('Please enter the HQ real email.'); return false; }
+  }
+  return true;
+}
+
+// ── NAV ──
+function goNext() {
+  if (!validate(step)) return;
+  if (step===4) { cachedCSVs = buildCSVs(); renderCSVCards(); }
+  step++; updateView();
+}
+function goBack() { step--; updateView(); }
+
+function updateView() {
+  for (let i=1; i<=5; i++) document.getElementById(`step${i}`).classList.toggle('hidden', i!==step);
+  if (step===3) {
+    populateHQStore(); dpInit('hq');
+    const hqInp = document.getElementById('hqName');
+    if (hqInp) { const c = document.getElementById('clientName')?.value.trim(); hqInp.placeholder = c ? `${c} Head Office` : 'Head Office'; }
+    refreshPrevs();
+  }
+  if (step===4) renderStoreUsers();
+  renderBar();
+  document.getElementById('backBtn').style.visibility = step>1 ? 'visible' : 'hidden';
+  const nb = document.getElementById('nextBtn');
+  nb.style.display = step===5 ? 'none' : 'inline-flex';
+  nb.textContent = step===4 ? 'Generate CSVs →' : 'Continue →';
+}
+
+// ── UTILS ──
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function hlText(text, q) {
+  if (!q) return esc(text);
+  const lo = text.toLowerCase(), qi = lo.indexOf(q);
+  if (qi === -1) return esc(text);
+  return esc(text.slice(0,qi)) + `<mark class="hl">${esc(text.slice(qi,qi+q.length))}</mark>` + esc(text.slice(qi+q.length));
+}
+
+// BOOT
+renderBar();
+</script>
+</body>
+</html>
