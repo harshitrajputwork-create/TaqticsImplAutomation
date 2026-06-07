@@ -23,6 +23,7 @@
     /* HEADER */
     .hdr{background:#fff;border-bottom:1px solid var(--br);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:200;box-shadow:0 1px 2px rgba(15,23,42,.05)}
     .hdr-l{display:flex;align-items:center;gap:12px}
+    .hdr-r{display:flex;align-items:center;gap:10px}
     .logo{font-size:17px;font-weight:800;color:var(--p);letter-spacing:-.4px}
     .hdiv{width:1px;height:16px;background:var(--br)}
     .tlbl{font-size:12.5px;font-weight:600;color:var(--ts)}
@@ -45,8 +46,8 @@
     .sline.done{background:var(--ok)}
 
     /* CARD */
-    .card{background:#fff;border:1px solid var(--br);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
-    .ch{padding:20px 26px 16px;border-bottom:1px solid var(--brl)}
+    .card{background:#fff;border:1px solid var(--br);border-radius:var(--r);box-shadow:var(--sh)}
+    .ch{padding:20px 26px 16px;border-bottom:1px solid var(--brl);border-radius:var(--r) var(--r) 0 0}
     .ct{font-size:16px;font-weight:800;color:var(--tx);letter-spacing:-.2px}
     .cs{font-size:13px;color:var(--ts);margin-top:2px}
     .cb{padding:24px 26px}
@@ -119,9 +120,9 @@
     .dp-hint{margin-top:6px;font-size:12px;color:#1E40AF;padding:5px 9px;background:var(--pl);border-radius:var(--rx);font-weight:600;display:none}
 
     /* STORE SECTION (step 4) */
-    .ss{border:1.5px solid var(--br);border-radius:var(--r);overflow:hidden;margin-bottom:18px}
+    .ss{border:1.5px solid var(--br);border-radius:var(--r);margin-bottom:18px}
     .ss:last-child{margin-bottom:0}
-    .ss-hd{background:#F8FAFC;border-bottom:1px solid var(--brl);padding:12px 18px;display:flex;align-items:center;justify-content:space-between}
+    .ss-hd{background:#F8FAFC;border-bottom:1px solid var(--brl);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;border-radius:var(--r) var(--r) 0 0}
     .ss-hl{display:flex;align-items:center;gap:9px}
     .sstag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;background:var(--pl);color:var(--p);padding:3px 7px;border-radius:4px;border:1px solid var(--pb)}
     .ssname{font-size:14px;font-weight:700;color:var(--tx)}
@@ -159,11 +160,168 @@
     .uob-l li:last-child{margin-bottom:0}
     .uob-l li::before{content:counter(uc);width:18px;height:18px;background:#F59E0B;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
 
+    /* ── HQ CHAIN ── */
+    .hq-level{border:1.5px solid var(--br);border-radius:var(--rs);margin-bottom:12px}
+    .hq-level-hd{background:#F8FAFC;border-bottom:1px solid var(--brl);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-radius:var(--rs) var(--rs) 0 0}
+    .hq-level-lbl{font-size:12px;font-weight:800;color:var(--ts);display:flex;align-items:center;gap:8px}
+    .hq-level-lbl .lvlbadge{background:var(--pl);color:var(--p);border:1px solid var(--pb);border-radius:20px;padding:2px 9px;font-size:10px;font-weight:800}
+    .hq-level-lbl .lvlsup{font-size:11px;font-weight:500;color:var(--tm)}
+    .hq-del{background:none;border:none;color:var(--tm);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px;border-radius:4px}
+    .hq-del:hover{background:#FEE2E2;color:var(--er)}
+    .hq-level-body{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media(max-width:600px){.hq-level-body{grid-template-columns:1fr}}
+
+    /* ── AI BUTTON ── */
+    .ai-fab{position:fixed;bottom:28px;right:28px;z-index:500;background:linear-gradient(135deg,#6366F1,#2563EB);color:#fff;border:none;border-radius:50px;padding:13px 22px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(99,102,241,.45);display:flex;align-items:center;gap:8px;transition:transform .15s,box-shadow .15s}
+    .ai-fab:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(99,102,241,.55)}
+    .ai-fab svg{width:18px;height:18px}
+
+    /* ── AI MODAL ── */
+    .ai-overlay{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:600;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px)}
+    .ai-modal{background:#fff;border-radius:16px;width:100%;max-width:580px;box-shadow:0 24px 64px rgba(15,23,42,.18);overflow:hidden;display:flex;flex-direction:column;max-height:90vh}
+    .ai-mhd{padding:20px 24px 16px;border-bottom:1px solid var(--brl);display:flex;align-items:center;justify-content:space-between}
+    .ai-mtitle{font-size:16px;font-weight:800;color:var(--tx);display:flex;align-items:center;gap:9px}
+    .ai-mbadge{font-size:10px;font-weight:800;background:linear-gradient(135deg,#6366F1,#2563EB);color:#fff;padding:3px 8px;border-radius:20px;letter-spacing:.4px}
+    .ai-mclose{width:30px;height:30px;border-radius:50%;border:none;background:#F1F5F9;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--ts)}
+    .ai-mclose:hover{background:#E2E8F0}
+    .ai-mbody{padding:20px 24px;overflow-y:auto;flex:1}
+
+    /* Tabs */
+    .ai-tabs{display:flex;border:1.5px solid var(--br);border-radius:var(--rs);overflow:hidden;margin-bottom:18px}
+    .ai-tab{flex:1;padding:9px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;border:none;background:#FAFBFC;color:var(--ts);transition:all .15s;font-family:inherit}
+    .ai-tab.on{background:linear-gradient(135deg,#6366F1,#2563EB);color:#fff}
+
+    /* NL input */
+    .ai-textarea{width:100%;padding:11px 13px;border:1.5px solid var(--br);border-radius:var(--rs);font-family:inherit;font-size:13.5px;color:var(--tx);background:#FAFBFC;outline:none;resize:vertical;min-height:110px;transition:border-color .15s,box-shadow .15s}
+    .ai-textarea:focus{border-color:#6366F1;background:#fff;box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+    .ai-textarea::placeholder{color:#C5CDD9}
+    /* Preset grid */
+    .ai-preset-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+    @media(max-width:520px){.ai-preset-grid{grid-template-columns:repeat(2,1fr)}}
+    .ai-preset{border:1.5px solid var(--br);border-radius:var(--rs);padding:9px 10px;cursor:pointer;transition:border-color .15s,background .15s;background:#FAFBFC;text-align:left}
+    .ai-preset:hover{border-color:#6366F1;background:#F5F3FF}
+    .ai-preset.sel{border-color:#6366F1;background:#F5F3FF}
+    .ai-preset-name{font-size:12px;font-weight:800;color:var(--tx);margin-bottom:3px}
+    .ai-preset-badges{display:flex;gap:4px;margin-bottom:4px;flex-wrap:wrap}
+    .ai-preset-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px}
+    .ai-preset-badge.s{background:#FEF3C7;color:#92400E}
+    .ai-preset-badge.i{background:var(--pl);color:var(--p)}
+    .ai-preset-breakdown{font-size:10.5px;color:var(--ts);line-height:1.4}
+    .ai-preset-when{font-size:10px;color:var(--tm);margin-top:3px;font-style:italic}
+
+    /* File upload */
+    .ai-drop{border:2px dashed var(--br);border-radius:var(--rs);padding:28px 20px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s;background:#FAFBFC}
+    .ai-drop:hover,.ai-drop.drag{border-color:#6366F1;background:#F5F3FF}
+    .ai-drop-icon{font-size:28px;margin-bottom:8px}
+    .ai-drop-t{font-size:13.5px;font-weight:700;color:var(--tx);margin-bottom:3px}
+    .ai-drop-s{font-size:12px;color:var(--tm)}
+    .ai-drop input{display:none}
+    .ai-file-sel{margin-top:10px;padding:8px 12px;background:var(--okl);border:1px solid #6EE7B7;border-radius:var(--rs);font-size:12.5px;font-weight:600;color:#065F46;display:flex;align-items:center;gap:7px}
+
+    /* Generate button + status */
+    .ai-gen-btn{width:100%;padding:12px;background:linear-gradient(135deg,#6366F1,#2563EB);color:#fff;border:none;border-radius:var(--rs);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s}
+    .ai-gen-btn:disabled{opacity:.6;cursor:not-allowed}
+    .ai-gen-btn .spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+    .ai-result{margin-top:14px;padding:13px 15px;background:var(--okl);border:1.5px solid #6EE7B7;border-radius:var(--rs)}
+    .ai-result-t{font-size:12.5px;font-weight:800;color:#065F46;margin-bottom:10px}
+    /* Hierarchy tree */
+    .ai-tree{font-size:12px;font-family:'Courier New',monospace;color:var(--tx);line-height:1.8;background:#F8FAFC;border:1px solid var(--brl);border-radius:var(--rx);padding:10px 12px;margin-bottom:12px;white-space:pre}
+    .ai-tree .t-root{color:var(--tm)}
+    .ai-tree .t-hq{color:#6366F1;font-weight:700}
+    .ai-tree .t-store{color:var(--p);font-weight:700}
+    .ai-tree .t-mgr{color:#92400E;font-weight:600}
+    .ai-tree .t-emp{color:#065F46}
+    /* Refine section */
+    .ai-refine{margin-top:12px;border-top:1px solid #A7F3D0;padding-top:12px}
+    .ai-refine-lbl{font-size:11.5px;font-weight:700;color:#047857;margin-bottom:6px}
+    .ai-refine textarea{width:100%;padding:8px 10px;border:1.5px solid #6EE7B7;border-radius:var(--rx);font-family:inherit;font-size:12.5px;color:var(--tx);background:#fff;outline:none;resize:vertical;min-height:60px}
+    .ai-refine textarea:focus{border-color:#6366F1;box-shadow:0 0 0 3px rgba(99,102,241,.08)}
+    .ai-refine-btn{margin-top:7px;padding:8px 16px;background:#6366F1;color:#fff;border:none;border-radius:var(--rx);font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
+    .ai-refine-btn:hover{background:#4F46E5}
+    .ai-err{margin-top:12px;padding:11px 13px;background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:var(--rs);font-size:13px;color:#DC2626}
+
+    /* Push to Taqtics */
+    .push-section{margin-top:20px;border:1.5px solid var(--pb);border-radius:var(--rs);overflow:hidden}
+    .push-hd{background:var(--pl);padding:13px 16px;display:flex;align-items:center;justify-content:space-between}
+    .push-title{font-size:14px;font-weight:800;color:var(--p)}
+    .push-sub{font-size:12px;color:#1E40AF;margin-top:1px}
+    .push-btn{padding:9px 20px;background:var(--p);color:#fff;border:none;border-radius:var(--rs);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s;white-space:nowrap}
+    .push-btn:hover{background:var(--pd)}.push-btn:disabled{opacity:.6;cursor:not-allowed}
+    .push-log{padding:12px 16px;max-height:280px;overflow-y:auto;background:#F8FAFC;border-top:1px solid var(--brl)}
+    .push-row{display:flex;align-items:center;gap:8px;font-size:12.5px;padding:4px 0;border-bottom:1px solid var(--brl)}
+    .push-row:last-child{border-bottom:none}
+    .push-icon{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+    .push-icon.ok{background:var(--okl);color:var(--ok)}.push-icon.err{background:#FEE2E2;color:var(--er)}.push-icon.spin-s{background:var(--pl);color:var(--p)}
+    .push-lbl{flex:1;color:var(--tx)}.push-badge{font-size:10px;padding:1px 6px;border-radius:4px;font-weight:700}
+    .push-badge.store{background:#FEF3C7;color:#92400E}.push-badge.hq{background:var(--pl);color:var(--p)}
+    .push-badge.manager{background:#FEF3C7;color:#92400E}.push-badge.employee{background:var(--okl);color:#065F46}
+    .push-badge.err{background:#FEE2E2;color:var(--er)}
+
     .hidden{display:none !important}
-    @media(max-width:600px){.main{padding:16px 12px 60px}.cb{padding:16px}.fgr{grid-template-columns:1fr}.cgrid{grid-template-columns:1fr}.cgrid2{grid-template-columns:1fr}.smeta{display:none}.ss-body{grid-template-columns:1fr}}
+    @media(max-width:600px){.main{padding:16px 12px 60px}.cb{padding:16px}.fgr{grid-template-columns:1fr}.cgrid{grid-template-columns:1fr}.cgrid2{grid-template-columns:1fr}.smeta{display:none}.ss-body{grid-template-columns:1fr}.ai-fab{bottom:16px;right:16px;padding:11px 16px;font-size:13px}}
   </style>
 </head>
 <body>
+
+<!-- AI MODAL -->
+<div class="ai-overlay hidden" id="aiOverlay">
+  <div class="ai-modal">
+    <div class="ai-mhd">
+      <div class="ai-mtitle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;color:#6366F1"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+        AI Setup Assistant <span class="ai-mbadge">GPT-4o</span>
+      </div>
+      <button class="ai-mclose" onclick="closeAI()">✕</button>
+    </div>
+    <div class="ai-mbody">
+      <div class="ai-tabs">
+        <button class="ai-tab on" id="tabNL" onclick="switchTab('nl')">✏️ Describe in words</button>
+        <button class="ai-tab" id="tabFile" onclick="switchTab('file')">📂 Upload client file</button>
+      </div>
+
+      <!-- NL Tab -->
+      <div id="panelNL">
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--tm);margin-bottom:8px">Quick Presets — click to load</div>
+          <div class="ai-preset-grid" id="aiPresetGrid"></div>
+        </div>
+        <textarea class="ai-textarea" id="aiPrompt" placeholder="Or describe freely… e.g. 3 stores in Mumbai for Bata, Sanjana at HQ, each store has Rizaul as manager with 2 employees"></textarea>
+      </div>
+
+      <!-- File Tab -->
+      <div id="panelFile" class="hidden">
+        <div class="ai-drop" id="aiDrop" onclick="document.getElementById('aiFileInput').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)">
+          <div class="ai-drop-icon">📄</div>
+          <div class="ai-drop-t">Click to upload or drag & drop</div>
+          <div class="ai-drop-s">Supports .xlsx, .xls, .csv — client demo sheets, store lists, user lists</div>
+          <input type="file" id="aiFileInput" accept=".xlsx,.xls,.csv" onchange="fileSelected(this)" />
+        </div>
+        <div id="aiFileInfo" class="hidden"></div>
+        <div style="margin-top:12px;font-size:12px;color:var(--tm)">The AI will extract store names, user names, emails, phone numbers and map them to the right fields.</div>
+      </div>
+
+      <div style="margin-top:14px">
+        <label style="font-size:12px;font-weight:700;color:var(--ts);margin-bottom:5px;display:block">Subdomain (so AI picks correct designations)</label>
+        <select id="aiImpl" style="max-width:220px">
+          <option value="">— Select subdomain —</option>
+          <option value="1">impl1.taqtics.co</option>
+          <option value="2">impl2.taqtics.co</option>
+          <option value="3">impl3.taqtics.co</option>
+          <option value="4">impl4.taqtics.co</option>
+        </select>
+      </div>
+
+      <button class="ai-gen-btn" id="aiGenBtn" onclick="runAI()">✨ Generate Setup</button>
+      <div id="aiResult" class="hidden"></div>
+    </div>
+  </div>
+</div>
+
+<!-- AI FAB -->
+<button class="ai-fab" onclick="openAI()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+  AI Setup
+</button>
 
 <div class="hdr">
   <div class="hdr-l">
@@ -171,7 +329,10 @@
     <div class="hdiv"></div>
     <div class="tlbl">Trial Setup Generator</div>
   </div>
-  <div class="spill" id="spill"></div>
+  <div class="hdr-r">
+    <div class="spill" id="spill"></div>
+    <button class="btn btng" onclick="clearAll()" style="font-size:12px;padding:6px 14px;color:var(--er);border-color:#FCA5A5">✕ Clear & Start Over</button>
+  </div>
 </div>
 
 <div class="main">
@@ -241,35 +402,18 @@
   <!-- Step 3 -->
   <div id="step3" class="hidden">
     <div class="card">
-      <div class="ch"><div class="ct">Head Office User</div><div class="cs">Top-level user — uploaded first. All store users report up to them.</div></div>
+      <div class="ch">
+        <div class="ct">Head Office Users</div>
+        <div class="cs">Build a chain of HQ users. Each person sees reports of everyone below them. The bottom person manages the stores.</div>
+      </div>
       <div class="cb">
-        <div class="ibox">
-          <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
-          Supervisor will be set to <strong id="hqSup" style="font-family:monospace;margin-left:4px">impl3@taqtics.co</strong>
+        <!-- Chain visual header -->
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:#F8FAFC;border:1px solid var(--brl);border-radius:var(--rs);margin-bottom:18px;font-size:12px;color:var(--ts)">
+          <span style="font-family:monospace;font-weight:700;color:var(--p)" id="hqSupLabel">impl3@taqtics.co</span>
+          <span style="color:var(--tm)">→ HQ Level 1 → HQ Level 2 → … → Store Managers → Employees</span>
         </div>
-        <div class="fgr">
-          <div class="fg" style="margin:0">
-            <label>Full Name <span class="req">*</span></label>
-            <input type="text" id="hqName" placeholder="e.g. Rajesh Kumar (leave blank to auto-name)" oninput="refreshPrevs()" />
-          </div>
-          <div class="fg" style="margin:0">
-            <label>Store <span class="opt">(optional)</span></label>
-            <select id="hqStore"><option value="">— No store assigned —</option></select>
-          </div>
-        </div>
-        <div class="fg" style="margin-top:16px">
-          <label>Designation <span class="req">*</span></label>
-          <div id="dpc_hq"></div>
-        </div>
-        <div class="fg">
-          <label>Email</label>
-          <div class="etog">
-            <button class="etb on" onclick="etToggle('hq','dummy',this)">Generate Dummy</button>
-            <button class="etb" onclick="etToggle('hq','real',this)">Use Real Email</button>
-          </div>
-          <div id="hq_dw"><input type="email" class="eprev-inp" id="hq_ei" placeholder="auto-generated on name entry" oninput="markManual(this,'hq')" /><div class="email-field-hint">Auto-suggested · edit freely · <span onclick="resetEmail('hq')">reset to auto</span></div></div>
-          <div id="hq_rw" class="hidden"><input type="email" id="hq_ri" placeholder="actual@email.com" /></div>
-        </div>
+        <div id="hqChainList"></div>
+        <button class="btn btng" onclick="addHQLevel()" style="width:100%;justify-content:center;margin-top:12px">+ Add another HQ level</button>
       </div>
     </div>
   </div>
@@ -277,7 +421,7 @@
   <!-- Step 4 -->
   <div id="step4" class="hidden">
     <div class="card">
-      <div class="ch"><div class="ct">Store Users</div><div class="cs">One Store Manager + one Store Employee per store. Toggle off stores that don't need users.</div></div>
+      <div class="ch"><div class="ct">Store Users</div><div class="cs">Configure users per store. Each employee reports to their manager — or directly to the HQ user if no manager is added.</div></div>
       <div class="cb" id="sub"></div>
     </div>
   </div>
@@ -288,13 +432,18 @@
       <div class="ch"><div class="ct">Download CSVs</div><div class="cs">Three files ready — upload to Taqtics in order.</div></div>
       <div class="cb">
         <div class="cgrid2" id="csvGrid"></div>
-        <div class="uob">
-          <div class="uob-t">⚠️ Upload in this exact order</div>
-          <ul class="uob-l">
-            <li>Upload <strong>CSV 1 — HQ User</strong> → wait for it to finish</li>
-            <li>Upload <strong>CSV 2 — Store Managers</strong> → wait for it to finish</li>
-            <li>Upload <strong>CSV 3 — Store Employees</strong> → wait for it to finish</li>
-          </ul>
+        <div class="uob" id="uploadOrderBox"></div>
+
+        <!-- Push to Taqtics directly -->
+        <div class="push-section" style="margin-top:20px">
+          <div class="push-hd">
+            <div>
+              <div class="push-title">⚡ Push Directly to Taqtics</div>
+              <div class="push-sub">Skip CSV upload — create stores & users via API in one click</div>
+            </div>
+            <button class="push-btn" id="pushBtn" onclick="pushToTaqtics()">Push to Taqtics →</button>
+          </div>
+          <div class="push-log hidden" id="pushLog"></div>
         </div>
       </div>
     </div>
@@ -341,10 +490,14 @@ async function fetchDesignations(impl) {
     if (data.error) throw new Error(data.error);
 
     // Map API response { role, userRole } → { name, role } to match existing code
+    // Deduplicate by name+role together — same name with different taqtics roles are distinct
     const seen = new Set();
     DESIGS = data
       .map(d => ({ name: d.role, role: d.userRole }))
-      .filter(d => d.name && d.role && !seen.has(d.name) && seen.add(d.name));
+      .filter(d => {
+        const key = `${d.name}||${d.role}`;
+        return d.name && d.role && !seen.has(key) && seen.add(key);
+      });
 
     DR = {};
     DESIGS.forEach(d => DR[d.name] = d.role);
@@ -388,11 +541,22 @@ function rerenderAllPickers() {
 
 // ── STATE ──
 let step = 1;
-const eModes = {hq:'dummy'};
-const sInc = {};
-const dSel = {};
+const eModes = {};       // email modes per key
+const sInc = {};         // store include flags
+const mInc_s = {};       // alias — will be replaced by mInc below
+const dSel = {};         // designation selections
 let openDp = null;
 let cachedCSVs = [];
+
+// HQ chain
+let hqChain = [];
+let hqIdCounter = 0;
+let hqChainRendered = false;   // don't wipe HQ form on back-navigation
+
+// Store users render state
+let storeUsersRendered = false;
+let lastRenderedStoreCount = 0;
+const extraEmpCount = {};       // i → number of EXTRA employees beyond the first (default 0)
 
 const SMETA = [
   {sup:"Step 1",lbl:"Account Setup"},{sup:"Step 2",lbl:"Stores"},
@@ -420,11 +584,14 @@ function onSubChange() {
   if (v) {
     document.getElementById('cfEmail').textContent = `impl${v}@taqtics.co`;
     document.getElementById('cfPwd').textContent = `Impl${v}@123789`;
-    document.getElementById('hqSup').textContent = `impl${v}@taqtics.co`;
     document.getElementById('cfBlock').classList.remove('hidden');
     pill.textContent = `impl${v}.taqtics.co`; pill.style.display = 'block';
     // Always fetch fresh designations when subdomain changes
     fetchDesignations(v);
+    // Reset HQ chain so Step 3 re-renders with correct designations for new impl
+    hqChainRendered = false;
+    hqChain = [];
+    hqIdCounter = 0;
   } else {
     document.getElementById('cfBlock').classList.add('hidden');
     pill.style.display = 'none';
@@ -453,42 +620,90 @@ function getStoreName(i) {
   const client = document.getElementById('clientName')?.value.trim();
   return client ? `${client} Store ${i+1}` : `Store ${i+1}`;
 }
+// HQ name helper — reads from chain (last entry = bottom of chain, manages stores)
 function getHQName() {
-  const val = document.getElementById('hqName')?.value.trim();
+  if (!hqChain.length) return 'Head Office';
+  const last = hqChain[hqChain.length - 1];
+  const val = document.getElementById(`hqn_${last}`)?.value.trim();
   if (val) return val;
   const client = document.getElementById('clientName')?.value.trim();
-  return client ? `${client} Head Office` : 'Head Office';
+  return client ? `${client} Head Office ${hqChain.length}` : `Head Office ${hqChain.length}`;
+}
+// Get email for a specific chain entry
+function getHQChainEmail(id) {
+  const key = `hq_${id}`;
+  if ((eModes[key]||'dummy') === 'real') {
+    const ri = document.getElementById(`hqri_${id}`);
+    if (ri && ri.value.trim()) return ri.value.trim();
+  }
+  const ei = document.getElementById(`hqei_${id}`);
+  if (ei && ei.value.trim()) return ei.value.trim();
+  const nameVal = document.getElementById(`hqn_${id}`)?.value.trim() || '';
+  return emailFor(nameVal, `hq${id}`);
+}
+function getHQChainName(id, idx) {
+  const val = document.getElementById(`hqn_${id}`)?.value.trim();
+  if (val) return val;
+  const client = document.getElementById('clientName')?.value.trim();
+  return client ? `${client} HQ ${idx+1}` : `HQ User ${idx+1}`;
 }
 function getManagerName(i) {
   const val = document.getElementById(`nm_s${i}m`)?.value.trim();
   if (val) return val;
   const client = document.getElementById('clientName')?.value.trim();
-  return client ? `${client} Manager ${i+1}` : `Store Manager ${i+1}`;
+  return client ? `${client} Manager ${i+1}` : `Manager ${i+1}`;
 }
 function getEmployeeName(i) {
   const val = document.getElementById(`nm_s${i}e`)?.value.trim();
   if (val) return val;
   const client = document.getElementById('clientName')?.value.trim();
-  return client ? `${client} Employee ${i+1}` : `Store Employee ${i+1}`;
+  return client ? `${client} Employee ${i+1}` : `Employee ${i+1}`;
 }
 
 // ── STORE CSV ──
+const CITY_COORDS = {
+  // India
+  'New Delhi':[28.6139,77.2090],'Delhi':[28.6139,77.2090],'Mumbai':[19.0760,72.8777],
+  'Bangalore':[12.9716,77.5946],'Bengaluru':[12.9716,77.5946],'Chennai':[13.0827,80.2707],
+  'Hyderabad':[17.3850,78.4867],'Kolkata':[22.5726,88.3639],'Pune':[18.5204,73.8567],
+  'Ahmedabad':[23.0225,72.5714],'Jaipur':[26.9124,75.7873],'Surat':[21.1702,72.8311],
+  'Lucknow':[26.8467,80.9462],'Kanpur':[26.4499,80.3319],'Nagpur':[21.1458,79.0882],
+  // USA
+  'New York':[40.7128,-74.0060],'Los Angeles':[34.0522,-118.2437],'Chicago':[41.8781,-87.6298],
+  'Houston':[29.7604,-95.3698],'Phoenix':[33.4484,-112.0740],'Philadelphia':[39.9526,-75.1652],
+  'San Antonio':[29.4241,-98.4936],'San Diego':[32.7157,-117.1611],'Dallas':[32.7767,-96.7970],
+  // UK
+  'London':[51.5074,-0.1278],'Manchester':[53.4808,-2.2426],'Birmingham':[52.4862,-1.8904],
+  'Glasgow':[55.8642,-4.2518],'Leeds':[53.8008,-1.5491],
+  // Others
+  'Dubai':[25.2048,55.2708],'Singapore':[1.3521,103.8198],'Sydney':[-33.8688,151.2093],
+  'Toronto':[43.6532,-79.3832],'Paris':[48.8566,2.3522],'Berlin':[52.5200,13.4050],
+};
+const STATE_MAP = {
+  'New Delhi':'Delhi','Delhi':'Delhi','Mumbai':'Maharashtra','Bangalore':'Karnataka',
+  'Bengaluru':'Karnataka','Chennai':'Tamil Nadu','Hyderabad':'Telangana','Kolkata':'West Bengal',
+  'Pune':'Maharashtra','Ahmedabad':'Gujarat','Jaipur':'Rajasthan','Surat':'Gujarat',
+  'New York':'New York','Los Angeles':'California','Chicago':'Illinois','Houston':'Texas',
+  'Phoenix':'Arizona','Dallas':'Texas','San Diego':'California','Philadelphia':'Pennsylvania',
+  'London':'England','Manchester':'England','Birmingham':'England','Glasgow':'Scotland',
+};
+
 function buildStoreCSV() {
   const n = parseInt(document.getElementById('storeCount').value) || 0;
   const client = document.getElementById('clientName').value.trim();
   const country = document.getElementById('storeCountry')?.value.trim() || 'India';
   const city = document.getElementById('storeCity')?.value.trim() || 'New Delhi';
-  const stateMap = {'New Delhi':'Delhi','Mumbai':'Maharashtra','Bangalore':'Karnataka','Bengaluru':'Karnataka','Chennai':'Tamil Nadu','Hyderabad':'Telangana','Kolkata':'West Bengal','Pune':'Maharashtra','Ahmedabad':'Gujarat','Jaipur':'Rajasthan'};
-  const state = stateMap[city] || city;
+  const state = STATE_MAP[city] || document.getElementById('storeState')?.value.trim() || city;
   const HDR = ['Store Name','Area','Address','City','State','Country','EntityId','Latitude','Longitude','Store Radius','Store-Status','Client_Name'];
-  const cityCoords = {'New Delhi':[28.6139,77.2090],'Mumbai':[19.0760,72.8777],'Bangalore':[12.9716,77.5946],'Bengaluru':[12.9716,77.5946],'Chennai':[13.0827,80.2707],'Hyderabad':[17.3850,78.4867],'Kolkata':[22.5726,88.3639],'Pune':[18.5204,73.8567],'Ahmedabad':[23.0225,72.5714],'Jaipur':[26.9124,75.7873]};
-  const [baseLat, baseLng] = cityCoords[city] || [28.6139, 77.2090];
+  const [baseLat, baseLng] = CITY_COORDS[city] || [28.6139, 77.2090];
   const rows = [];
   for (let i = 0; i < n; i++) {
     const sName = getStoreName(i);
-    const lat = (baseLat + (Math.random()-0.5)*0.08).toFixed(4);
-    const lng = (baseLng + (Math.random()-0.5)*0.08).toFixed(4);
-    rows.push([sName, `Area ${i+1}`, `${i+1} Main Road`, city, state, country,
+    // Use AI-suggested area if available, else generic
+    const area = window._aiStoreAreas?.[i] || `${city} Area ${i+1}`;
+    const lat = (baseLat + (Math.random()-0.5)*0.06).toFixed(4);
+    const lng = (baseLng + (Math.random()-0.5)*0.06).toFixed(4);
+    rows.push([sName, area, `${i+1} ${area} Road`, city, state, country,
       Math.floor(100000+Math.random()*900000), lat, lng, 100, 'Functional', client]);
   }
   return {HDR, rows};
@@ -502,18 +717,107 @@ function dlStoreCSV() {
   a.download = '00_stores.csv'; a.click();
 }
 
-// ── STEP 3: HQ STORE PICKER ──
-function populateHQStore() {
+// Build store <option> list for HQ dropdowns — defaults to Store 1
+function buildStoreOptions() {
   const n = parseInt(document.getElementById('storeCount').value) || 0;
-  const sel = document.getElementById('hqStore');
-  const prev = sel.value;
-  sel.innerHTML = '<option value="">— No store assigned —</option>';
+  let opts = '<option value="">— No store —</option>';
   for (let i = 0; i < n; i++) {
-    const nm = getStoreName(i);
-    const o = document.createElement('option');
-    o.value = nm; o.textContent = nm; sel.appendChild(o);
+    const name = getStoreName(i);
+    opts += `<option value="${esc(name)}"${i === 0 ? ' selected' : ''}>${esc(name)}</option>`;
   }
-  if (prev) sel.value = prev;
+  return opts;
+}
+
+// ── STEP 3: HQ CHAIN ──
+function renderHQChain() {
+  // Ensure at least 1 level
+  if (!hqChain.length) { hqIdCounter++; hqChain = [hqIdCounter]; }
+  const rootEmail = document.getElementById('cfEmail')?.textContent || 'impl@taqtics.co';
+  document.getElementById('hqSupLabel').textContent = rootEmail;
+  const list = document.getElementById('hqChainList');
+  list.innerHTML = '';
+  hqChain.forEach((id, idx) => {
+    const supLabel = idx === 0 ? rootEmail : getHQChainEmail(hqChain[idx-1]);
+    const nameVal = document.getElementById(`hqn_${id}`)?.value || '';
+    const client = document.getElementById('clientName')?.value.trim();
+    const ph = client ? `${client} HQ ${idx+1}` : `HQ User ${idx+1}`;
+    const mode = eModes[`hq_${id}`] || 'dummy';
+    list.innerHTML += `
+      <div class="hq-level" id="hqlvl_${id}">
+        <div class="hq-level-hd">
+          <div class="hq-level-lbl">
+            <span class="lvlbadge">Level ${idx+1}</span>
+            <span class="lvlsup">Reports to: <strong>${esc(supLabel)}</strong></span>
+          </div>
+          ${hqChain.length > 1 ? `<button class="hq-del" onclick="removeHQLevel(${id})" title="Remove">×</button>` : ''}
+        </div>
+        <div class="hq-level-body">
+          <div>
+            <div class="fg"><label>Full Name</label><input type="text" id="hqn_${id}" placeholder="${ph}" oninput="refreshPrevs();updateHQSupLabels()" /></div>
+            <div class="fg"><label>Designation <span class="req">*</span></label><div id="dpc_hq${id}"></div></div>
+            <div class="fg" style="margin-bottom:0"><label>Store</label><select id="hqstore_${id}">${buildStoreOptions()}</select></div>
+          </div>
+          <div>
+            <div class="fg"><label>Email</label>
+              <div class="etog">
+                <button class="etb ${mode==='dummy'?'on':''}" onclick="etToggle('hq_${id}','dummy',this)">Generate Dummy</button>
+                <button class="etb ${mode==='real'?'on':''}" onclick="etToggle('hq_${id}','real',this)">Use Real Email</button>
+              </div>
+              <div id="hq_${id}_dw" class="${mode==='real'?'hidden':''}">
+                <input type="email" class="eprev-inp" id="hqei_${id}" placeholder="auto-generated" oninput="markManual(this,'hq_${id}');updateHQSupLabels()" />
+                <div class="email-field-hint">Auto-suggested · <span onclick="resetHQEmail(${id})">reset to auto</span></div>
+              </div>
+              <div id="hq_${id}_rw" class="${mode==='dummy'?'hidden':''}">
+                <input type="email" id="hqri_${id}" placeholder="actual@email.com" oninput="updateHQSupLabels()" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  });
+  // Init designation pickers with smart default
+  const defHQDesig = getBestHQDesignation();
+  hqChain.forEach(id => dpInit(`hq${id}`, defHQDesig?.name));
+  refreshPrevs();
+}
+
+function addHQLevel() {
+  hqIdCounter++;
+  hqChain.push(hqIdCounter);
+  renderHQChain();
+}
+
+function removeHQLevel(id) {
+  hqChain = hqChain.filter(x => x !== id);
+  renderHQChain();
+}
+
+function updateHQSupLabels() {
+  // Update "Reports to" labels live as emails change
+  hqChain.forEach((id, idx) => {
+    if (idx === 0) return;
+    const supEmail = getHQChainEmail(hqChain[idx-1]);
+    const lbl = document.querySelector(`#hqlvl_${id} .lvlsup`);
+    if (lbl) lbl.innerHTML = `Reports to: <strong>${esc(supEmail)}</strong>`;
+  });
+}
+
+function refreshHQStoreDropdowns() {
+  const opts = buildStoreOptions();
+  hqChain.forEach(id => {
+    const sel = document.getElementById(`hqstore_${id}`);
+    if (!sel) return;
+    const prev = sel.value;
+    sel.innerHTML = opts;
+    if (prev) sel.value = prev;
+  });
+}
+
+function resetHQEmail(id) {
+  const ei = document.getElementById(`hqei_${id}`);
+  if (!ei) return;
+  delete ei.dataset.manual;
+  refreshPrevs();
 }
 
 // ── DESIGNATION PICKER ──
@@ -637,38 +941,117 @@ function getEmail(key, nameVal, shortKey) {
   return emailFor(nameVal, shortKey);
 }
 function refreshPrevs() {
-  const hqVal = document.getElementById('hqName')?.value || '';
-  const ei = document.getElementById('hq_ei');
-  if (ei && !ei.dataset.manual) ei.value = emailFor(hqVal, 'hq');
+  // HQ chain emails
+  hqChain.forEach((id, idx) => {
+    const ei = document.getElementById(`hqei_${id}`);
+    if (ei && !ei.dataset.manual) {
+      const nameVal = document.getElementById(`hqn_${id}`)?.value || '';
+      ei.value = emailFor(nameVal, `hq${idx+1}`);
+    }
+  });
+  // Store user emails
   const n = parseInt(document.getElementById('storeCount').value) || 0;
   for (let i = 0; i < n; i++) {
-    const mK = `s${i}m`, eK = `s${i}e`;
+    const mK = `s${i}m`;
     const mVal = document.getElementById(`nm_${mK}`)?.value || '';
-    const eVal = document.getElementById(`nm_${eK}`)?.value || '';
     const mp = document.getElementById(`ep_${mK}`);
-    const ep = document.getElementById(`ep_${eK}`);
     if (mp && !mp.dataset.manual) mp.value = emailFor(mVal, `manager${i+1}`);
-    if (ep && !ep.dataset.manual) ep.value = emailFor(eVal, `employee${i+1}`);
+    const ec = extraEmpCount[i] || 0;
+    for (let j = 0; j <= ec; j++) {
+      const eK = `s${i}e${j}`;
+      const eVal = document.getElementById(`nm_${eK}`)?.value || '';
+      const ep = document.getElementById(`ep_${eK}`);
+      // suffix: employee1, employee1b, employee1c... (no underscores)
+      const suffix = ec > 0 ? String.fromCharCode(97 + j) : '';
+      if (ep && !ep.dataset.manual) ep.value = emailFor(eVal, `employee${i+1}${suffix}`);
+    }
   }
 }
 
 // ── STEP 4 ──
+const mInc = {}; // per-store manager include flag
+
+// Smart default for HQ users: prefer areaManager (max safe role for trial — avoids
+// exposing other companies' data on shared subdomains). Never pick companyAdmin.
+function getBestHQDesignation() {
+  // Priority 1: areaManager (can see reports below them, cannot see all company data)
+  let pool = DESIGS.filter(d => d.role === 'areaManager');
+  // Priority 2: nonCreatorAreaManager
+  if (!pool.length) pool = DESIGS.filter(d => d.role === 'nonCreatorAreaManager');
+  // Fallback: anything except companyAdmin / nonCreatorCompanyAdmin
+  if (!pool.length) pool = DESIGS.filter(d => !['companyAdmin','nonCreatorCompanyAdmin','admin'].includes(d.role));
+  if (!pool.length) return null;
+  // Among matches, prefer name containing "area" or "head"
+  const area = pool.find(d => d.name.toLowerCase().includes('area'));
+  const head = pool.find(d => d.name.toLowerCase().includes('head'));
+  return area || head || pool[0];
+}
+
+// Smart default: find best designation for 'manager' or 'employee' type
+// Priority: exact taqtics role match → prefer non-nonCreator → prefer name containing keyword
+function getBestDesignation(type) {
+  const targetRole = type === 'manager' ? 'storeManager' : 'storeEmployee';
+  const keyword    = type === 'manager' ? 'manager' : 'employee';
+
+  let pool = DESIGS.filter(d => d.role === targetRole);
+  if (!pool.length) return null;
+
+  // Prefer names that don't start with "nonCreator"
+  const nonNC = pool.filter(d => !d.role.startsWith('nonCreator'));
+  if (nonNC.length) pool = nonNC;
+
+  // Among those, prefer name containing the keyword (e.g. "Store Manager", "Manager")
+  const withKw = pool.filter(d => d.name.toLowerCase().includes(keyword));
+  return (withKw.length ? withKw : pool)[0];
+}
+
 function renderStoreUsers() {
   const n = parseInt(document.getElementById('storeCount').value) || 0;
   const body = document.getElementById('sub');
   body.innerHTML = '';
   const clientLabel = document.getElementById('clientName')?.value.trim();
 
+  // ── Bulk-change bar ──
+  const defMgr = getBestDesignation('manager');
+  const defEmp = getBestDesignation('employee');
+
+  const mgrOptions = DESIGS.filter(d => !d.role.startsWith('nonCreator') || d.role === 'storeManager')
+    .map(d => `<option value="${esc(d.name)}">${esc(d.name)} (${d.role})</option>`).join('');
+  const empOptions = DESIGS
+    .map(d => `<option value="${esc(d.name)}">${esc(d.name)} (${d.role})</option>`).join('');
+
+  body.innerHTML = `
+    <div style="background:#F8FAFC;border:1.5px solid var(--brl);border-radius:var(--rs);padding:12px 16px;margin-bottom:18px">
+      <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--tm);margin-bottom:10px">Set default designation for all stores</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div>
+          <label style="font-size:12px;font-weight:700;color:var(--ts);margin-bottom:4px;display:block">All Managers</label>
+          <select id="bulkMgr" onchange="applyBulkDesig('manager',this.value)">
+            <option value="">— pick to apply to all —</option>
+            ${mgrOptions}
+          </select>
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:700;color:var(--ts);margin-bottom:4px;display:block">All Employees</label>
+          <select id="bulkEmp" onchange="applyBulkDesig('employee',this.value)">
+            <option value="">— pick to apply to all —</option>
+            ${empOptions}
+          </select>
+        </div>
+      </div>
+    </div>`;
+
   for (let i = 0; i < n; i++) {
     const sn = getStoreName(i);
     const mK = `s${i}m`, eK = `s${i}e`;
     if (sInc[i] === undefined) sInc[i] = true;
+    if (mInc[i] === undefined) mInc[i] = true;
     if (!eModes[mK]) eModes[mK] = 'dummy';
     if (!eModes[eK]) eModes[eK] = 'dummy';
-    const on = sInc[i];
+    const on = sInc[i], hasMgr = mInc[i];
     const mMode = eModes[mK], eMode = eModes[eK];
-    const mPh = clientLabel ? `${clientLabel} Manager ${i+1}` : `Store Manager ${i+1}`;
-    const ePh = clientLabel ? `${clientLabel} Employee ${i+1}` : `Store Employee ${i+1}`;
+    const mPh = clientLabel ? `${clientLabel} Manager ${i+1}` : `Manager ${i+1}`;
+    const ePh = clientLabel ? `${clientLabel} Employee ${i+1}` : `Employee ${i+1}`;
 
     body.innerHTML += `
       <div class="ss">
@@ -680,9 +1063,15 @@ function renderStoreUsers() {
           </div>
         </div>
         <div id="ssb_${i}" class="${on?'':'hidden'}">
+          <div style="padding:10px 14px 0;display:flex;align-items:center;gap:8px">
+            <div class="itog" onclick="toggleMgrInc(${i})">
+              <div class="itrack ${hasMgr?'on':''}" id="mit_${i}"></div>
+              <span class="itlbl ${hasMgr?'on':''}" id="mitl_${i}" style="font-size:11.5px">${hasMgr?'Has Manager':'No manager — employee reports directly to HQ'}</span>
+            </div>
+          </div>
           <div class="ss-body">
-            <div class="ub">
-              <div class="ubadge mgr">Store Manager</div>
+            <div class="ub ${hasMgr?'':'hidden'}" id="mub_${i}">
+              <div class="ubadge mgr">Manager</div>
               <div class="fg"><label>Full Name</label><input type="text" id="nm_${mK}" placeholder="${mPh}" oninput="refreshPrevs()" /></div>
               <div class="fg"><label>Designation</label><div id="dpc_${mK}"></div></div>
               <div class="fg" style="margin-bottom:0">
@@ -695,29 +1084,91 @@ function renderStoreUsers() {
                 <div id="${mK}_rw" class="${mMode==='dummy'?'hidden':''}"><input type="email" id="${mK}_ri" placeholder="actual@email.com" /></div>
               </div>
             </div>
-            <div class="ub">
-              <div class="ubadge emp">Store Employee</div>
-              <div class="fg"><label>Full Name</label><input type="text" id="nm_${eK}" placeholder="${ePh}" oninput="refreshPrevs()" /></div>
-              <div class="fg"><label>Designation</label><div id="dpc_${eK}"></div></div>
-              <div class="fg" style="margin-bottom:0">
-                <label>Email</label>
-                <div class="etog">
-                  <button class="etb ${eMode==='dummy'?'on':''}" onclick="etToggle('${eK}','dummy',this)">Generate Dummy</button>
-                  <button class="etb ${eMode==='real'?'on':''}" onclick="etToggle('${eK}','real',this)">Use Real Email</button>
-                </div>
-                <div id="${eK}_dw" class="${eMode==='real'?'hidden':''}"><input type="email" class="eprev-inp" id="ep_${eK}" placeholder="auto-generated on name entry" oninput="markManual(this,'${eK}')" /><div class="email-field-hint">Auto-suggested · edit freely · <span onclick="resetEmail('${eK}')">reset to auto</span></div></div>
-                <div id="${eK}_rw" class="${eMode==='dummy'?'hidden':''}"><input type="email" id="${eK}_ri" placeholder="actual@email.com" /></div>
-              </div>
-            </div>
+            <div id="empCols_${i}" style="display:contents">${buildEmployeeCard(i, 0, hasMgr, clientLabel)}</div>
+          </div>
+          <div style="padding:0 14px 14px">
+            <button class="btn btng" onclick="addEmployee(${i})" style="font-size:12px;padding:7px 14px">+ Add Employee</button>
           </div>
         </div>
       </div>`;
   }
 
+  const defMgrDesig = getBestDesignation('manager');
+  const defEmpDesig = getBestDesignation('employee');
+
+  // Set bulk bar defaults
+  if (defMgrDesig) { const el = document.getElementById('bulkMgr'); if (el) el.value = defMgrDesig.name; }
+  if (defEmpDesig) { const el = document.getElementById('bulkEmp'); if (el) el.value = defEmpDesig.name; }
+
   for (let i = 0; i < n; i++) {
-    dpInit(`s${i}m`, 'Store Manager');
-    dpInit(`s${i}e`, 'Store Employee');
+    if (mInc[i]) dpInit(`s${i}m`, defMgrDesig?.name || 'Store Manager');
+    const ec = extraEmpCount[i] || 0;
+    for (let j = 0; j <= ec; j++) dpInit(`s${i}e${j}`, defEmpDesig?.name || 'Store Employee');
   }
+  refreshPrevs();
+}
+
+// Apply one designation to all manager or employee pickers
+function applyBulkDesig(type, desigName) {
+  if (!desigName || !DR[desigName]) return;
+  const n = parseInt(document.getElementById('storeCount').value) || 0;
+  for (let i = 0; i < n; i++) {
+    if (!sInc[i]) continue;
+    if (type === 'manager') {
+      if (!mInc[i]) continue;
+      dpSelect(`s${i}m`, desigName, DR[desigName], false);
+    } else {
+      const ec = extraEmpCount[i] || 0;
+      for (let j = 0; j <= ec; j++) dpSelect(`s${i}e${j}`, desigName, DR[desigName], false);
+    }
+  }
+}
+
+function buildEmployeeCard(i, j, hasMgr, clientLabel) {
+  const eK = `s${i}e${j}`;
+  if (!eModes[eK]) eModes[eK] = 'dummy';
+  const eMode = eModes[eK];
+  const ePh = clientLabel ? `${clientLabel} Employee ${j+1}` : `Employee ${j+1}`;
+  const canRemove = j > 0;
+  return `<div class="ub" id="empcard_${eK}">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div class="ubadge emp" style="margin:0">Employee${j>0?' '+(j+1):''}</div>
+      ${canRemove ? `<button class="hq-del" onclick="removeEmployee(${i},${j})" title="Remove">×</button>` : ''}
+    </div>
+    <div style="font-size:11px;color:var(--tm);margin-bottom:10px">Reports to: <strong id="empRepTo_${eK}">${hasMgr ? 'Manager above' : 'HQ User'}</strong></div>
+    <div class="fg"><label>Full Name</label><input type="text" id="nm_${eK}" placeholder="${ePh}" oninput="refreshPrevs()" /></div>
+    <div class="fg"><label>Designation</label><div id="dpc_${eK}"></div></div>
+    <div class="fg" style="margin-bottom:0">
+      <label>Email</label>
+      <div class="etog">
+        <button class="etb ${eMode==='dummy'?'on':''}" onclick="etToggle('${eK}','dummy',this)">Generate Dummy</button>
+        <button class="etb ${eMode==='real'?'on':''}" onclick="etToggle('${eK}','real',this)">Use Real Email</button>
+      </div>
+      <div id="${eK}_dw" class="${eMode==='real'?'hidden':''}"><input type="email" class="eprev-inp" id="ep_${eK}" placeholder="auto-generated" oninput="markManual(this,'${eK}')" /><div class="email-field-hint">Auto-suggested · <span onclick="resetEmail('${eK}')">reset to auto</span></div></div>
+      <div id="${eK}_rw" class="${eMode==='dummy'?'hidden':''}"><input type="email" id="${eK}_ri" placeholder="actual@email.com" /></div>
+    </div>
+  </div>`;
+}
+
+function addEmployee(i) {
+  extraEmpCount[i] = (extraEmpCount[i] || 0) + 1;
+  const j = extraEmpCount[i];
+  const hasMgr = mInc[i];
+  const clientLabel = document.getElementById('clientName')?.value.trim();
+  const container = document.getElementById(`empCols_${i}`);
+  if (!container) return;
+  const div = document.createElement('div');
+  div.innerHTML = buildEmployeeCard(i, j, hasMgr, clientLabel);
+  while (div.firstChild) container.appendChild(div.firstChild);
+  const defEmp = getBestDesignation('employee');
+  dpInit(`s${i}e${j}`, defEmp?.name);
+  refreshPrevs();
+}
+
+function removeEmployee(i, j) {
+  const card = document.getElementById(`empcard_s${i}e${j}`);
+  if (card) card.remove();
+  extraEmpCount[i] = Math.max(0, (extraEmpCount[i] || 0) - 1);
   refreshPrevs();
 }
 
@@ -728,6 +1179,23 @@ function toggleInc(i) {
   document.getElementById(`itl_${i}`).className = `itlbl${on?' on':''}`;
   document.getElementById(`itl_${i}`).textContent = on ? 'Creating users' : 'Skipped';
   document.getElementById(`ssb_${i}`)?.classList.toggle('hidden', !on);
+}
+
+function toggleMgrInc(i) {
+  mInc[i] = !mInc[i];
+  const on = mInc[i];
+  document.getElementById(`mit_${i}`).className = `itrack${on?' on':''}`;
+  document.getElementById(`mitl_${i}`).className = `itlbl${on?' on':''}`;
+  document.getElementById(`mitl_${i}`).textContent = on ? 'Has Manager' : 'No manager — employee reports directly to HQ';
+  document.getElementById(`mub_${i}`)?.classList.toggle('hidden', !on);
+  // Update "Reports to" label on employee card
+  const empCard = document.getElementById(`mub_${i}`)?.nextElementSibling;
+  if (empCard) {
+    const lbl = empCard.querySelector('div[style*="Reports to"]');
+    if (lbl) lbl.innerHTML = `Reports to: <strong>${on ? 'Store Manager above' : 'HQ User'}</strong>`;
+  }
+  if (on) dpInit(`s${i}m`, 'Store Manager');
+  refreshPrevs();
 }
 
 // ── CSV ──
@@ -741,18 +1209,34 @@ function buildCSVs() {
   const n = parseInt(document.getElementById('storeCount').value) || 0;
   const HDR = ['Employee Id','Name','Email','Valid Email','Country Code','Phone Number','Store Name','Tenant Role','Supervisor Email','Password','Client_Name'];
 
-  const hqNameVal = document.getElementById('hqName')?.value.trim() || '';
-  const hqName = hqNameVal || getHQName();
-  const hqDesig = document.getElementById('dpi_hq')?.value || 'Business Head';
-  const hqStore = document.getElementById('hqStore').value;
-  const hqEmail = getEmail('hq', hqNameVal, 'hq');
-  const hqValid = eModes.hq === 'real' ? 'TRUE' : 'FALSE';
-  const csv1 = {label:'HQ User', fname:'01_hq_user.csv', rows:[[rndId(),hqName,hqEmail,hqValid,'+91','9999999999',hqStore,hqDesig,rootEmail,pwd,client]], HDR};
+  // Build one CSV per HQ chain level (each person's supervisor must already be uploaded)
+  const hqCSVs = [];
+  let prevEmail = rootEmail;
+  hqChain.forEach((id, idx) => {
+    const nameVal = document.getElementById(`hqn_${id}`)?.value.trim() || '';
+    const name = nameVal || getHQChainName(id, idx);
+    const desig = document.getElementById(`dpi_hq${id}`)?.value || 'Business Head';
+    const email = getHQChainEmail(id);
+    const valid = (eModes[`hq_${id}`]||'dummy') === 'real' ? 'TRUE' : 'FALSE';
+    const store = document.getElementById(`hqstore_${id}`)?.value || getStoreName(0);
+    const padded = String(idx + 1).padStart(2, '0');
+    hqCSVs.push({
+      label: `HQ Level ${idx+1}${nameVal ? ' — '+nameVal : ''}`,
+      fname: `${padded}_hq_level${idx+1}.csv`,
+      rows: [[rndId(), name, email, valid, '+91', '9999999999', store, desig, prevEmail, pwd, client]],
+      HDR
+    });
+    prevEmail = email;
+  });
+  // Bottom of chain = supervisor for store managers
+  const hqEmail = prevEmail;
+  const mgrOffset = hqChain.length;
 
-  const csv2 = {label:'Store Managers', fname:'02_store_managers.csv', rows:[], HDR};
+  const p2 = String(mgrOffset + 1).padStart(2, '0');
+  const csv2 = {label:'Store Managers', fname:`${p2}_store_managers.csv`, rows:[], HDR};
   const mgrEmails = {};
   for (let i = 0; i < n; i++) {
-    if (!sInc[i]) continue;
+    if (!sInc[i] || !mInc[i]) continue; // skip stores with no manager
     const sn = getStoreName(i);
     const key = `s${i}m`;
     const mNameVal = document.getElementById(`nm_${key}`)?.value.trim() || '';
@@ -764,31 +1248,53 @@ function buildCSVs() {
     csv2.rows.push([rndId(),name,email,valid,'+91','9999999999',sn,desig,hqEmail,pwd,client]);
   }
 
-  const csv3 = {label:'Store Employees', fname:'03_store_employees.csv', rows:[], HDR};
+  const p3 = String(mgrOffset + 2).padStart(2, '0');
+  const csv3 = {label:'Store Employees', fname:`${p3}_store_employees.csv`, rows:[], HDR};
   for (let i = 0; i < n; i++) {
     if (!sInc[i]) continue;
     const sn = getStoreName(i);
-    const key = `s${i}e`;
-    const eNameVal = document.getElementById(`nm_${key}`)?.value.trim() || '';
-    const name = eNameVal || getEmployeeName(i);
-    const desig = document.getElementById(`dpi_${key}`)?.value || 'Store Employee';
-    const email = getEmail(key, eNameVal, `employee${i+1}`);
-    const valid = eModes[key] === 'real' ? 'TRUE' : 'FALSE';
-    csv3.rows.push([rndId(),name,email,valid,'+91','9999999999',sn,desig,mgrEmails[i]||hqEmail,pwd,client]);
+    const supervisorEmail = mgrEmails[i] || hqEmail;
+    const ec = extraEmpCount[i] || 0;
+    for (let j = 0; j <= ec; j++) {
+      const key = `s${i}e${j}`;
+      const eNameVal = document.getElementById(`nm_${key}`)?.value.trim() || '';
+      const name = eNameVal || (document.getElementById('clientName')?.value.trim()
+        ? `${document.getElementById('clientName').value.trim()} Employee ${j+1}`
+        : `Employee ${j+1}`);
+      const desig = document.getElementById(`dpi_${key}`)?.value || 'Store Employee';
+      const empSuffix = ec > 0 ? String.fromCharCode(97 + j) : '';
+      const email = getEmail(key, eNameVal, `employee${i+1}${empSuffix}`);
+      const valid = (eModes[key]||'dummy') === 'real' ? 'TRUE' : 'FALSE';
+      csv3.rows.push([rndId(),name,email,valid,'+91','9999999999',sn,desig,supervisorEmail,pwd,client]);
+    }
   }
 
-  return [csv1, csv2, csv3];
+  return [...hqCSVs, csv2, csv3];
 }
 
+const ORDINALS = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th'];
 function renderCSVCards() {
   const grid = document.getElementById('csvGrid');
-  const ords = ['1st','2nd','3rd'];
   grid.innerHTML = '';
-  cachedCSVs.forEach((csv,i) => {
+  // Dynamic grid columns based on count
+  const cols = Math.min(cachedCSVs.length, 3);
+  grid.style.gridTemplateColumns = `repeat(${cols},1fr)`;
+
+  // Only show CSVs that have rows (skip empty manager CSV if no managers configured)
+  const visibleCSVs = cachedCSVs.filter(csv => csv.rows.length > 0);
+  // Renumber upload order based on visible CSVs
+  visibleCSVs.forEach((csv, vi) => {
+    const i = cachedCSVs.indexOf(csv);
     const pre = [csv.HDR,...csv.rows].slice(0,3).map(r => r.join(',')).join('\n');
     const cnt = csv.rows.length;
-    grid.innerHTML += `<div class="cc"><div class="cc-hd"><div class="cc-ord">Upload ${ords[i]}</div><div class="cc-name">${csv.label}</div><div class="cc-cnt">${cnt} user${cnt!==1?'s':''}</div></div><div class="cc-bd"><button class="dlbtn" onclick="dlCSV(${i})">↓ Download ${csv.fname}</button><div class="cc-pre">${esc(pre)}</div></div></div>`;
+    const ord = ORDINALS[vi] || `${vi+1}th`;
+    grid.innerHTML += `<div class="cc"><div class="cc-hd"><div class="cc-ord">Upload ${ord}</div><div class="cc-name">${esc(csv.label)}</div><div class="cc-cnt">${cnt} user${cnt!==1?'s':''}</div></div><div class="cc-bd"><button class="dlbtn" onclick="dlCSV(${i})">↓ Download</button><div class="cc-pre">${esc(pre)}</div></div></div>`;
   });
+
+  // Dynamic upload order — only non-empty CSVs
+  const box = document.getElementById('uploadOrderBox');
+  let items = visibleCSVs.map(csv => `<li>Upload <strong>${csv.fname}</strong> → wait to finish</li>`).join('');
+  box.innerHTML = `<div class="uob-t">⚠️ Upload in this exact order</div><ul class="uob-l">${items}</ul>`;
 }
 
 function dlCSV(idx) {
@@ -807,8 +1313,15 @@ function validate(s) {
     if (!n || n<1) { alert('Enter at least 1 store.'); return false; }
   }
   if (s===3) {
-    if (!document.getElementById('dpi_hq')?.value) { alert('Please select a designation for the HQ user.'); return false; }
-    if (eModes.hq==='real' && !document.getElementById('hq_ri').value.trim()) { alert('Please enter the HQ real email.'); return false; }
+    for (let i = 0; i < hqChain.length; i++) {
+      const id = hqChain[i];
+      if (!document.getElementById(`dpi_hq${id}`)?.value) {
+        alert(`Please select a designation for HQ Level ${i+1}.`); return false;
+      }
+      if ((eModes[`hq_${id}`]||'dummy') === 'real' && !document.getElementById(`hqri_${id}`)?.value.trim()) {
+        alert(`Please enter the real email for HQ Level ${i+1}.`); return false;
+      }
+    }
   }
   return true;
 }
@@ -816,7 +1329,15 @@ function validate(s) {
 // ── NAV ──
 function goNext() {
   if (!validate(step)) return;
-  if (step===4) { cachedCSVs = buildCSVs(); renderCSVCards(); }
+  if (step===4) {
+    cachedCSVs = buildCSVs();
+    const dupes = checkDuplicateEmails(cachedCSVs);
+    if (dupes.length) {
+      alert(`⚠️ Duplicate email${dupes.length > 1 ? 's' : ''} detected — these users will fail upload:\n\n${dupes.join('\n')}\n\nPlease fix before downloading.`);
+      return;
+    }
+    renderCSVCards();
+  }
   step++; updateView();
 }
 function goBack() { step--; updateView(); }
@@ -824,12 +1345,22 @@ function goBack() { step--; updateView(); }
 function updateView() {
   for (let i=1; i<=5; i++) document.getElementById(`step${i}`).classList.toggle('hidden', i!==step);
   if (step===3) {
-    populateHQStore(); dpInit('hq');
-    const hqInp = document.getElementById('hqName');
-    if (hqInp) { const c = document.getElementById('clientName')?.value.trim(); hqInp.placeholder = c ? `${c} Head Office` : 'Head Office'; }
-    refreshPrevs();
+    if (!hqChainRendered) { renderHQChain(); hqChainRendered = true; }
+    // Always keep root email label in sync
+    const rootEmail = document.getElementById('cfEmail')?.textContent || 'impl@taqtics.co';
+    const supLbl = document.getElementById('hqSupLabel');
+    if (supLbl) supLbl.textContent = rootEmail;
+    // Refresh store dropdowns in case store names changed in Step 2
+    refreshHQStoreDropdowns();
   }
-  if (step===4) renderStoreUsers();
+  if (step===4) {
+    const n = parseInt(document.getElementById('storeCount').value) || 0;
+    if (!storeUsersRendered || n !== lastRenderedStoreCount) {
+      renderStoreUsers();
+      storeUsersRendered = true;
+      lastRenderedStoreCount = n;
+    }
+  }
   renderBar();
   document.getElementById('backBtn').style.visibility = step>1 ? 'visible' : 'hidden';
   const nb = document.getElementById('nextBtn');
@@ -846,8 +1377,557 @@ function hlText(text, q) {
   return esc(text.slice(0,qi)) + `<mark class="hl">${esc(text.slice(qi,qi+q.length))}</mark>` + esc(text.slice(qi+q.length));
 }
 
+// ── DUPLICATE EMAIL CHECK ──
+function checkDuplicateEmails(csvs) {
+  const seen = {}, dupes = [];
+  csvs.forEach(csv => {
+    csv.rows.forEach(row => {
+      const email = row[2]; // Email column
+      if (!email) return;
+      if (seen[email]) dupes.push(email);
+      else seen[email] = true;
+    });
+  });
+  return [...new Set(dupes)];
+}
+
+// ── LOCALSTORAGE AUTO-SAVE ──
+const LS_KEY = 'taqtics_session_v1';
+function saveSession() {
+  try {
+    const data = {
+      subdomain: document.getElementById('subdomain')?.value,
+      clientName: document.getElementById('clientName')?.value,
+      storeCount: document.getElementById('storeCount')?.value,
+      storeCountry: document.getElementById('storeCountry')?.value,
+      storeCity: document.getElementById('storeCity')?.value,
+      step,
+      stores: [],
+      hqChainSaved: [],
+    };
+    const n = parseInt(data.storeCount) || 0;
+    for (let i = 0; i < n; i++) data.stores.push(document.getElementById(`sn_${i}`)?.value || '');
+    hqChain.forEach(id => {
+      data.hqChainSaved.push({
+        name: document.getElementById(`hqn_${id}`)?.value || '',
+        email: document.getElementById(`hqei_${id}`)?.value || '',
+        store: document.getElementById(`hqstore_${id}`)?.value || '',
+      });
+    });
+    localStorage.setItem(LS_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+function loadSession() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    if (data.subdomain) { document.getElementById('subdomain').value = data.subdomain; onSubChange(); }
+    if (data.clientName) document.getElementById('clientName').value = data.clientName;
+    if (data.storeCount) { document.getElementById('storeCount').value = data.storeCount; renderStoreInputs(); }
+    if (data.storeCountry) document.getElementById('storeCountry').value = data.storeCountry;
+    if (data.storeCity) document.getElementById('storeCity').value = data.storeCity;
+    (data.stores || []).forEach((v, i) => { const el = document.getElementById(`sn_${i}`); if (el && v) el.value = v; });
+    return true;
+  } catch(e) { return false; }
+}
+function clearAll() {
+  if (!confirm('Clear everything and start over?')) return;
+  localStorage.removeItem(LS_KEY);
+  location.reload();
+}
+// Auto-save on any input/change
+document.addEventListener('input', () => saveSession());
+document.addEventListener('change', () => saveSession());
+
+// ── PUSH TO TAQTICS ──
+async function pushToTaqtics() {
+  const btn = document.getElementById('pushBtn');
+  const logEl = document.getElementById('pushLog');
+  btn.disabled = true; btn.textContent = 'Pushing…';
+  logEl.innerHTML = ''; logEl.classList.remove('hidden');
+
+  const addRow = (type, name, status, extra = '') => {
+    const icon = status === 'created' ? '✓' : status === 'error' ? '✕' : '…';
+    const iconCls = status === 'created' ? 'ok' : status === 'error' ? 'err' : 'spin-s';
+    logEl.innerHTML += `<div class="push-row">
+      <div class="push-icon ${iconCls}">${icon}</div>
+      <span class="push-badge ${type}">${type}</span>
+      <span class="push-lbl">${esc(name)}${extra ? ' <span style="color:var(--tm)">— '+esc(extra)+'</span>' : ''}</span>
+    </div>`;
+    logEl.scrollTop = logEl.scrollHeight;
+  };
+  addRow('store', 'Starting API push…', 'pending');
+
+  // Build payload from current form state
+  const sub = document.getElementById('subdomain').value;
+  const client = document.getElementById('clientName').value.trim();
+  const city = document.getElementById('storeCity').value.trim() || 'New Delhi';
+  const country = document.getElementById('storeCountry').value.trim() || 'India';
+  const state = document.getElementById('storeState')?.value || city;
+  const n = parseInt(document.getElementById('storeCount').value) || 0;
+  const storesPayload = [];
+  for (let i = 0; i < n; i++) storesPayload.push({ name: getStoreName(i), area: window._aiStoreAreas?.[i] || `${city} Area ${i+1}` });
+
+  // HQ chain
+  const hqChainPayload = hqChain.map(id => ({
+    name: document.getElementById(`hqn_${id}`)?.value.trim() || '',
+    designation: document.getElementById(`dpi_hq${id}`)?.value || '',
+    email: getHQChainEmail(id),
+    emailIsReal: (eModes[`hq_${id}`] || 'dummy') === 'real',
+    storeName: document.getElementById(`hqstore_${id}`)?.value || '',
+  }));
+
+  // Store users
+  const storeUsersPayload = [];
+  for (let i = 0; i < n; i++) {
+    if (!sInc[i]) continue;
+    const mgr = mInc[i] ? {
+      name: document.getElementById(`nm_s${i}m`)?.value.trim() || '',
+      designation: document.getElementById(`dpi_s${i}m`)?.value || '',
+      email: getEmail(`s${i}m`, '', `manager${i+1}`),
+      emailIsReal: (eModes[`s${i}m`] || 'dummy') === 'real',
+    } : null;
+    const employees = [];
+    const ec = extraEmpCount[i] || 0;
+    for (let j = 0; j <= ec; j++) {
+      const eK = `s${i}e${j}`;
+      employees.push({
+        name: document.getElementById(`nm_${eK}`)?.value.trim() || '',
+        designation: document.getElementById(`dpi_${eK}`)?.value || '',
+        email: getEmail(eK, '', `employee${i+1}_${j+1}`),
+        emailIsReal: (eModes[eK] || 'dummy') === 'real',
+      });
+    }
+    storeUsersPayload.push({ storeIndex: i, manager: mgr, employees });
+  }
+
+  try {
+    const resp = await fetch('/proxy/create-all', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ impl: sub, clientName: client, city, state, country,
+        password: `Impl${sub}@123789`, stores: storesPayload,
+        hqChain: hqChainPayload, storeUsers: storeUsersPayload }),
+    });
+    const result = await resp.json();
+    logEl.innerHTML = '';
+    (result.log || []).forEach(entry => addRow(entry.type, entry.name || '?', entry.status, entry.error || entry.store || ''));
+    if (result.error && !result.log?.length) addRow('store', result.error, 'error');
+  } catch (err) {
+    logEl.innerHTML = ''; addRow('store', err.message, 'error');
+  }
+  btn.disabled = false; btn.textContent = 'Push to Taqtics →';
+}
+
+// ── CLEAR ──
+function clearAll() {
+  if (!confirm('Clear everything and start over?')) return;
+  try { localStorage.removeItem(LS_KEY); } catch(e) {}
+  location.reload();
+}
+
 // BOOT
 renderBar();
+// Restore session if available
+if (loadSession()) {
+  const banner = document.createElement('div');
+  banner.style.cssText = 'position:fixed;top:56px;left:0;right:0;background:#FEF3C7;border-bottom:1px solid #FDE68A;padding:8px 20px;font-size:12.5px;font-weight:600;color:#92400E;z-index:100;display:flex;align-items:center;justify-content:space-between';
+  banner.innerHTML = `<span>📋 Previous session restored</span><button onclick="this.parentElement.remove()" style="border:none;background:none;cursor:pointer;font-size:16px;color:#92400E">×</button>`;
+  document.body.appendChild(banner);
+  setTimeout(() => banner.remove(), 5000);
+}
+
+// ── AI PRESETS ──
+const AI_PRESETS = [
+  {
+    name: 'Micro',
+    stores: 1, total: 2,
+    breakdown: '1 HQ + 1 employee',
+    when: 'Tiny account, just exploring',
+    prompt: c => `${c}1 store, 2 total users: 1 HQ user and 1 employee in the store. No store manager — employee reports directly to HQ.`
+  },
+  {
+    name: 'Micro+',
+    stores: 1, total: 3,
+    breakdown: '1 HQ + 2 employees',
+    when: 'Single store, 2 staff on trial',
+    prompt: c => `${c}1 store, 3 total users: 1 HQ user and 2 employees in the store. No manager — both employees report to HQ.`
+  },
+  {
+    name: 'Standard',
+    stores: 2, total: 3,
+    breakdown: '1 HQ + 1 user per store',
+    when: 'Most common — ~60% of trials',
+    prompt: c => `${c}2 stores, 3 total users: 1 HQ user and 1 employee per store. No store managers — employees report directly to HQ.`
+  },
+  {
+    name: 'Standard+',
+    stores: 2, total: 4,
+    breakdown: '1 HQ + 1 mgr + 2 employees',
+    when: '2 stores, client wants manager layer',
+    prompt: c => `${c}2 stores, 4 total users: 1 HQ user. Store 1 has 1 manager and 1 employee. Store 2 has 1 employee only (reports to HQ). Manager in store 1 reports to HQ.`
+  },
+  {
+    name: 'Standard XL',
+    stores: 2, total: 5,
+    breakdown: '1 HQ + 1 mgr + 1 emp per store',
+    when: '2 stores, heavier usage trial',
+    prompt: c => `${c}2 stores, 5 total users: 1 HQ user. Each store has 1 manager and 1 employee. Managers report to HQ.`
+  },
+  {
+    name: 'Large',
+    stores: 3, total: 4,
+    breakdown: '1 HQ + 1 user per store',
+    when: '3 stores, lean setup',
+    prompt: c => `${c}3 stores, 4 total users: 1 HQ user and 1 employee per store. No managers — all employees report to HQ.`
+  },
+  {
+    name: 'Large+',
+    stores: 3, total: 5,
+    breakdown: '1 HQ + 1 mgr + 3 employees',
+    when: '3 stores, slightly deeper',
+    prompt: c => `${c}3 stores, 5 total users: 1 HQ user. Store 1 has 1 manager and 1 employee. Stores 2 and 3 have 1 employee each (report to HQ). Manager in store 1 reports to HQ.`
+  }
+];
+
+let selectedPreset = null;
+
+function renderPresets() {
+  const grid = document.getElementById('aiPresetGrid');
+  if (!grid) return;
+  grid.innerHTML = AI_PRESETS.map((p, i) => `
+    <div class="ai-preset" id="preset_${i}" onclick="selectPreset(${i})">
+      <div class="ai-preset-name">${p.name}</div>
+      <div class="ai-preset-badges">
+        <span class="ai-preset-badge s">${p.stores} store${p.stores>1?'s':''}</span>
+        <span class="ai-preset-badge i">${p.total} IDs</span>
+      </div>
+      <div class="ai-preset-breakdown">${p.breakdown}</div>
+      <div class="ai-preset-when">${p.when}</div>
+    </div>`).join('');
+}
+
+function selectPreset(i) {
+  selectedPreset = i;
+  document.querySelectorAll('.ai-preset').forEach((el, j) => el.classList.toggle('sel', j === i));
+  const p = AI_PRESETS[i];
+  const client = document.getElementById('clientName')?.value.trim();
+  const clientPrefix = client ? `Client name: ${client}. ` : '';
+  document.getElementById('aiPrompt').value = p.prompt(clientPrefix);
+}
+
+// ── AI LAYER ──
+let aiTab = 'nl';
+let aiSelectedFile = null;
+
+function openAI() {
+  document.getElementById('aiOverlay').classList.remove('hidden');
+  const sub = document.getElementById('subdomain')?.value;
+  if (sub) document.getElementById('aiImpl').value = sub;
+  renderPresets();
+}
+function closeAI() { document.getElementById('aiOverlay').classList.add('hidden'); }
+document.getElementById('aiOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeAI(); });
+
+function switchTab(tab) {
+  aiTab = tab;
+  document.getElementById('tabNL').classList.toggle('on', tab === 'nl');
+  document.getElementById('tabFile').classList.toggle('on', tab === 'file');
+  document.getElementById('panelNL').classList.toggle('hidden', tab !== 'nl');
+  document.getElementById('panelFile').classList.toggle('hidden', tab !== 'file');
+}
+
+function setExample(el) { document.getElementById('aiPrompt').value = el.textContent.trim(); } // kept for compat
+
+function dragOver(e) { e.preventDefault(); document.getElementById('aiDrop').classList.add('drag'); }
+function dragLeave() { document.getElementById('aiDrop').classList.remove('drag'); }
+function dropFile(e) {
+  e.preventDefault();
+  dragLeave();
+  const f = e.dataTransfer.files[0];
+  if (f) setFile(f);
+}
+function fileSelected(input) { if (input.files[0]) setFile(input.files[0]); }
+function setFile(f) {
+  aiSelectedFile = f;
+  const info = document.getElementById('aiFileInfo');
+  info.className = 'ai-file-sel';
+  info.innerHTML = `<span>📎</span><span><strong>${esc(f.name)}</strong> — ${(f.size/1024).toFixed(1)} KB</span>`;
+}
+
+async function runAI() {
+  const btn = document.getElementById('aiGenBtn');
+  const resultEl = document.getElementById('aiResult');
+  const impl = document.getElementById('aiImpl').value;
+  if (!impl) { showAIError('Please select a subdomain first.'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spin"></div> Thinking…';
+  resultEl.className = 'hidden';
+
+  try {
+    // Get current designations for this impl (fetch if not loaded)
+    let desigs = DESIGS;
+    if (desigLoadedForImpl !== impl) {
+      const r = await fetch(`/proxy/roles?impl=${impl}`);
+      const data = await r.json();
+      desigs = data.map(d => ({ name: d.role, role: d.userRole }));
+    }
+
+    let result;
+    if (aiTab === 'file' && aiSelectedFile) {
+      const form = new FormData();
+      form.append('file', aiSelectedFile);
+      form.append('impl', impl);
+      form.append('designations', JSON.stringify(desigs.map(d => ({ role: d.name, userRole: d.role }))));
+      const r = await fetch('/proxy/parse-file', { method: 'POST', body: form });
+      result = await r.json();
+    } else {
+      const prompt = document.getElementById('aiPrompt').value.trim();
+      if (!prompt) { showAIError('Please describe what you want to set up.'); return; }
+      const r = await fetch('/proxy/ai-fill', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt, impl, designations: desigs.map(d => ({ role: d.name, userRole: d.role })) }),
+      });
+      result = await r.json();
+    }
+
+    if (result.error) throw new Error(result.error);
+    applyAIResult(result, impl);
+
+  } catch (err) {
+    showAIError(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '✨ Generate Setup';
+  }
+}
+
+let lastAIResult = null; // for refine
+
+function applyAIResult(data, impl) {
+  lastAIResult = data;
+
+  // 1. Set subdomain
+  const subEl = document.getElementById('subdomain');
+  if (impl) { subEl.value = impl; onSubChange(); }
+
+  // 2. Set client name
+  if (data.clientName) document.getElementById('clientName').value = data.clientName;
+
+  // 3. Stores
+  const stores = data.stores || [];
+  if (stores.length) {
+    document.getElementById('storeCount').value = stores.length;
+    renderStoreInputs();
+    stores.forEach((s, i) => { if (s.name) { const el = document.getElementById(`sn_${i}`); if (el) el.value = s.name; } });
+    // Save AI-suggested areas for buildStoreCSV
+    window._aiStoreAreas = stores.map(s => s.area || null);
+    if (data.city) document.getElementById('storeCity').value = data.city;
+    if (data.country) document.getElementById('storeCountry').value = data.country;
+    // Store state for CSV (hidden field — create if missing)
+    if (data.state) { let sf = document.getElementById('storeState'); if (!sf) { sf = document.createElement('input'); sf.type='hidden'; sf.id='storeState'; document.body.appendChild(sf); } sf.value = data.state; }
+  }
+
+  // 4. HQ chain — support both new hqChain[] and legacy hqUser
+  if (data.hqChain?.length) {
+    pendingHQChain = data.hqChain;
+  } else if (data.hqUser) {
+    pendingHQChain = [data.hqUser];
+  }
+
+  // 5. Store users — support both employees[] and legacy employee
+  if (data.storeUsers?.length) {
+    pendingStoreUsers = data.storeUsers.map(su => ({
+      ...su,
+      employees: su.employees || (su.employee ? [su.employee] : [])
+    }));
+  }
+
+  showAIConfirm(data);
+}
+
+let pendingHQChain = null;  // array of {name, designation, email}
+let pendingStoreUsers = [];
+
+// Apply pending HQ data when step 3 renders
+const _origUpdateView = updateView;
+// We'll hook into updateView to apply pending data
+
+function applyPendingHQ() {
+  if (!pendingHQChain?.length) return;
+  // Build correct number of HQ chain levels
+  while (hqChain.length < pendingHQChain.length) addHQLevel();
+  // Apply each level
+  pendingHQChain.forEach((hq, idx) => {
+    const id = hqChain[idx];
+    if (!id) return;
+    if (hq.name) { const el = document.getElementById(`hqn_${id}`); if (el) el.value = hq.name; }
+    if (hq.designation && DR[hq.designation]) dpSelect(`hq${id}`, hq.designation, DR[hq.designation], false);
+    if (hq.email) {
+      if (hq.emailIsReal) {
+        // Use the toggle function so button highlight updates too
+        const realBtn = document.querySelector(`#hqlvl_${id} .etb:last-child`);
+        if (realBtn) etToggle(`hq_${id}`, 'real', realBtn);
+        const ri = document.getElementById(`hqri_${id}`); if (ri) ri.value = hq.email;
+      } else {
+        const ei = document.getElementById(`hqei_${id}`);
+        if (ei) { ei.value = hq.email; ei.dataset.manual = '1'; }
+      }
+    }
+  });
+  refreshPrevs();
+  pendingHQChain = null;
+}
+
+function applyPendingStoreUsers() {
+  if (!pendingStoreUsers.length) return;
+  pendingStoreUsers.forEach(su => {
+    const i = su.storeIndex;
+    // If AI returned no manager, toggle off the manager for this store
+    if (!su.manager && mInc[i]) toggleMgrInc(i);
+    if (su.manager) {
+      if (!mInc[i]) toggleMgrInc(i); // ensure manager section is visible
+      if (su.manager.name) { const el = document.getElementById(`nm_s${i}m`); if (el) el.value = su.manager.name; }
+      if (su.manager.designation && DR[su.manager.designation]) dpSelect(`s${i}m`, su.manager.designation, DR[su.manager.designation], false);
+      if (su.manager.email) {
+        const mK = `s${i}m`;
+        if (su.manager.emailIsReal) {
+          const realBtn = document.querySelector(`#mub_${i} .etb:last-child`);
+          if (realBtn) etToggle(mK, 'real', realBtn);
+          const ri = document.getElementById(`${mK}_ri`); if (ri) ri.value = su.manager.email;
+        } else {
+          const ep = document.getElementById(`ep_${mK}`); if (ep) { ep.value = su.manager.email; ep.dataset.manual = '1'; }
+        }
+      }
+    }
+    const employees = su.employees || [];
+    employees.forEach((emp, j) => {
+      if (!emp) return;
+      // Add extra employee cards if needed
+      while ((extraEmpCount[i] || 0) < j) addEmployee(i);
+      const eK = `s${i}e${j}`;
+      if (emp.name) { const el = document.getElementById(`nm_${eK}`); if (el) el.value = emp.name; }
+      if (emp.designation && DR[emp.designation]) dpSelect(eK, emp.designation, DR[emp.designation], false);
+      if (emp.email) {
+        if (emp.emailIsReal) {
+          const realBtn = document.querySelector(`#empcard_${eK} .etb:last-child`);
+          if (realBtn) etToggle(eK, 'real', realBtn);
+          const ri = document.getElementById(`${eK}_ri`); if (ri) ri.value = emp.email;
+        } else {
+          const ep = document.getElementById(`ep_${eK}`); if (ep) { ep.value = emp.email; ep.dataset.manual = '1'; }
+        }
+      }
+    });
+  });
+  refreshPrevs();
+  pendingStoreUsers = [];
+}
+
+// Patch updateView to apply pending AI data at the right steps
+const _baseUpdateView = updateView;
+updateView = function() {
+  _baseUpdateView();
+  if (step === 3 && pendingHQChain) applyPendingHQ();
+  if (step === 4) setTimeout(applyPendingStoreUsers, 50);
+};
+
+function buildAITree(data) {
+  const stores = data.stores || [];
+  const hqChainData = data.hqChain || (data.hqUser ? [data.hqUser] : []);
+  const storeUsers = data.storeUsers || [];
+  const client = data.clientName || 'Client';
+  let lines = [];
+
+  const rootImpl = document.getElementById('aiImpl').value || '?';
+  lines.push(`impl${rootImpl}@taqtics.co  (root admin)`);
+
+  hqChainData.forEach((hq, idx) => {
+    const prefix = '  '.repeat(idx + 1);
+    const connector = idx === hqChainData.length - 1 && stores.length === 0 ? '└─' : '└─';
+    lines.push(`${prefix}${connector} ${hq.name || `HQ ${idx+1}`}  [${hq.designation || '—'}]`);
+  });
+
+  const indent = '  '.repeat(hqChainData.length + 1);
+  stores.forEach((store, si) => {
+    const su = storeUsers.find(x => x.storeIndex === si);
+    const isLast = si === stores.length - 1;
+    const storeConn = isLast ? '└─' : '├─';
+    lines.push(`${indent}${storeConn} 📍 ${store.name || `Store ${si+1}`}`);
+    const inner = indent + (isLast ? '   ' : '│  ');
+    if (su?.manager) {
+      const empCount = (su.employees || []).length;
+      lines.push(`${inner}├─ ${su.manager.name || 'Manager'}  [${su.manager.designation || '—'}]  (manager)`);
+      (su.employees || []).forEach((emp, ei) => {
+        const empConn = ei === empCount - 1 ? '└─' : '├─';
+        lines.push(`${inner}│  ${empConn} ${emp?.name || `Employee ${ei+1}`}  [${emp?.designation || '—'}]`);
+      });
+    } else {
+      (su?.employees || []).forEach((emp, ei) => {
+        const empCount2 = (su?.employees || []).length;
+        const empConn = ei === empCount2 - 1 ? '└─' : '├─';
+        lines.push(`${inner}${empConn} ${emp?.name || `Employee ${ei+1}`}  [${emp?.designation || '—'}]  → reports to HQ`);
+      });
+    }
+  });
+
+  return lines.join('\n');
+}
+
+function showAIConfirm(data) {
+  const resultEl = document.getElementById('aiResult');
+  const tree = buildAITree(data);
+  const totalUsers = (data.hqChain?.length || 1) +
+    (data.storeUsers || []).reduce((s, su) => s + (su.manager ? 1 : 0) + (su.employees?.length || 1), 0);
+
+  let html = `<div class="ai-result-t">✓ Understood — ${totalUsers} users across ${(data.stores||[]).length} stores</div>`;
+  html += `<div class="ai-tree">${esc(tree)}</div>`;
+  html += `<div class="ai-refine">
+    <div class="ai-refine-lbl">Something wrong? Describe what to fix:</div>
+    <textarea id="aiRefineText" placeholder="e.g. Move Baneet above Sanjana, add one more employee to Uttara store named Priya"></textarea>
+    <button class="ai-refine-btn" onclick="runRefine()">↺ Refine</button>
+  </div>`;
+  html += `<button class="btn btnp" style="margin-top:12px;width:100%;justify-content:center" onclick="closeAI()">Review & Continue →</button>`;
+  resultEl.innerHTML = html;
+  resultEl.className = 'ai-result';
+}
+
+async function runRefine() {
+  const refineText = document.getElementById('aiRefineText')?.value.trim();
+  if (!refineText) return;
+  const impl = document.getElementById('aiImpl').value;
+  const btn = document.querySelector('.ai-refine-btn');
+  btn.textContent = '…'; btn.disabled = true;
+  try {
+    const r = await fetch('/proxy/ai-fill', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt: refineText,
+        impl,
+        designations: DESIGS.map(d => ({ role: d.name, userRole: d.role })),
+        context: lastAIResult  // pass current structure as context
+      })
+    });
+    const result = await r.json();
+    if (result.error) throw new Error(result.error);
+    applyAIResult(result, impl);
+  } catch (err) {
+    showAIError(err.message);
+  } finally {
+    btn.textContent = '↺ Refine'; btn.disabled = false;
+  }
+}
+
+function showAIError(msg) {
+  const resultEl = document.getElementById('aiResult');
+  resultEl.innerHTML = `<strong>Error:</strong> ${esc(msg)}`;
+  resultEl.className = 'ai-err';
+  document.getElementById('aiGenBtn').disabled = false;
+  document.getElementById('aiGenBtn').innerHTML = '✨ Generate Setup';
+}
 </script>
 </body>
 </html>
