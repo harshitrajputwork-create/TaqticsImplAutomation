@@ -299,7 +299,9 @@ app.post('/proxy/create-all', async (req, res) => {
           entityId: String(Math.floor(100000 + Math.random() * 900000)),
           tags: clientName ? { Client_Name: clientName } : {},
         });
-        const storeId = r._id || r.data?._id || r.store?._id;
+        // POST /stores returns { data: [ StoreObject ] } — ID is in the array
+        const storeId = r.data?.[0]?._id || r.data?._id || r._id || r.store?._id;
+        if (!storeId) throw new Error('store created but no ID returned');
         storeIdMap[s.name] = storeId;
         push({ type: 'store', name: s.name, status: 'created', id: storeId });
       } catch (err) {
