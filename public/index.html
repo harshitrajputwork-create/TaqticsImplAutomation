@@ -1128,7 +1128,8 @@ function buildEmployeeCard(i, j, hasMgr, clientLabel) {
   const eK = `s${i}e${j}`;
   if (!eModes[eK]) eModes[eK] = 'dummy';
   const eMode = eModes[eK];
-  const ePh = clientLabel ? `${clientLabel} Employee ${j+1}` : `Employee ${j+1}`;
+  const empNumLabel = `${i+1}${j > 0 ? String.fromCharCode(97+j) : ''}`;
+  const ePh = clientLabel ? `${clientLabel} Employee ${empNumLabel}` : `Employee ${empNumLabel}`;
   const canRemove = j > 0;
   return `<div class="ub" id="empcard_${eK}">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
